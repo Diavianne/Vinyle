@@ -1,8 +1,26 @@
-design
+**/.metadata
+**/target/
+**/bin/
 
+### STS ###
+**/.apt_generated
+**/.classpath
+**/.factorypath
 **/.project
-**/.dbeaver
+**/.settings
+**/.springBeans
+**/.sts4-cache
 
+### IntelliJ IDEA ###
+**/.idea
+**/*.iws
+**/*.iml
+**/*.ipr
+
+### VS Code ###
+**/.vscode/
+
+### Others ###
+**/application-local.properties
+**/application-dev.properties
 **/.DS_Store
-
-
