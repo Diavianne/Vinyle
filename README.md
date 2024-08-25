@@ -59,7 +59,7 @@ Le projet Vinyle est un logiciel qui permet de gérer une discothèque de vinyle
 ### Modèle Physique des Données (MPD)
 ```sql
 
-CREATE TABLE vinyls (
+CREATE TABLE t_vinyls (
     vinyl_id INT PRIMARY KEY,
     release VARCHAR(255),
     release_year INT,
