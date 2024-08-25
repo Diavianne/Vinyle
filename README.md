@@ -65,7 +65,7 @@ CREATE TABLE vinyls (
     release_year INT,
     artist_name VARCHAR (255),
     label_name VARCHAR (255),
-    genre VARCHAR(255),
+    style VARCHAR(255),
     vinyl_img VARCHAR(41)
 );
 
