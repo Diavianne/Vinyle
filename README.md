@@ -45,7 +45,7 @@ Le projet Vinyle est un logiciel qui permet de gérer une discothèque de vinyle
 | Attribut | Type | Longueur/précision | Obligatoire | Exemples |
 | --- | --- | --- | --- | --- | 
 | **Nom** | Texte | 100| Oui | Dee Jay |
-| **e-mail** | Texte | 100| Oui | Dee Jay |
+| **e-mail** | Texte | 100| Oui | dee.jay@jolimail.io |
 | adresse postale | Texte | 400| Non | 64 rue Condorcet |
 | Ville | Texte | 100| Oui | Paris |
 | **code postal** | Texte | 6 | Oui | 75009 |
