@@ -5,7 +5,7 @@ Ceci est un prototype.
 # Vinyle
  Projet Soutenance CDA
 
-Le projet Vinyle est un logiciel qui permet de gérer une discothèque de vinyles. L’application s'adresse au professionnelle du secteur musical. Il s’agit d’un logiciel de gestion de stock au format desktop ou tablette utilisable dans une boutique physique à l’instar d’un vidéo club.
+Le projet Vinyle est un logiciel qui permet de gérer une discothèque de vinyles. L’application s'adresse aux professionnels du secteur musical. Il s’agit d’un logiciel de gestion de stock au format desktop ou tablette utilisable dans une boutique physique à l’instar d’un vidéo club.
 
 ## Principales fonctionnalités
 - Créer un compte (disquaire non enregistré)
