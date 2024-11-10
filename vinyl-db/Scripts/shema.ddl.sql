@@ -9,10 +9,9 @@ CREATE TABLE t_vinyls (
     label_name VARCHAR (255),
     music_style VARCHAR(255),
     vinyl_img VARCHAR(41),
-    CONSTRAINT t_vinyls_pkey PRIMARY KEY (vinyls_id),
+    CONSTRAINT t_vinyls_pkey PRIMARY KEY (vinyl_id),
 	CONSTRAINT t_vinyls_ukey UNIQUE (release_title)
 );
 
 
 SELECT * FROM t_vinyls;
-

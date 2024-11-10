@@ -24,3 +24,5 @@
 **/application-local.properties
 **/application-dev.properties
 **/.DS_Store
+*.properties
+*.properties
