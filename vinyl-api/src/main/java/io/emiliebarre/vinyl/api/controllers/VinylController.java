@@ -1,6 +1,8 @@
 package io.emiliebarre.vinyl.api.controllers;
 
 import io.emiliebarre.vinyl.api.dtos.VinylCreate;
+import io.emiliebarre.vinyl.api.dtos.VinylUpdate;
+import io.emiliebarre.vinyl.api.dtos.VinylView;
 import io.emiliebarre.vinyl.api.entities.Vinyl;
 import io.emiliebarre.vinyl.api.services.VinylService;
 import jakarta.validation.Valid;
@@ -8,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/vinyls")
 public class VinylController {
     private final VinylService vinylService;
 
-
+@Autowired
     public VinylController(VinylService vinylService) {
         this.vinylService = vinylService;
     }
@@ -27,7 +29,7 @@ public class VinylController {
 
     @GetMapping
     Collection<VinylView> getAll() {
-        return vinylService.getAllVinyls();
+        return vinylService.getAll();
     }
 
     @GetMapping("/vinyls/{id}")

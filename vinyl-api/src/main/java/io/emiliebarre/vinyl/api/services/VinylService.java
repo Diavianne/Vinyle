@@ -1,37 +1,41 @@
 package io.emiliebarre.vinyl.api.services;
 
 import io.emiliebarre.vinyl.api.dtos.VinylCreate;
+import io.emiliebarre.vinyl.api.dtos.VinylUpdate;
+import io.emiliebarre.vinyl.api.dtos.VinylView;
 import io.emiliebarre.vinyl.api.entities.Vinyl;
 import io.emiliebarre.vinyl.api.repositories.VinylRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class VinylService {
 
-    @Value("${spotmebusiness.uploads.dest}")
+    @Value("${vinylapi.uploads.dest}")
     private String uploadsDest;
 
 
-    private final VinylRepository vinylRepository;
+    private final VinylRepository vinyls;
 
     @Autowired
     public VinylService(VinylRepository vinylRepository) {
-        this.vinylRepository = vinylRepository;
+        this.vinyls = vinylRepository;
     }
 
     public List<Vinyl> getAllVinyls() {
-        return vinylRepository.findAll();
+        return vinyls.findAll();
     }
 
     public Vinyl getVinylById(Long id) {
-        return vinylRepository.findById(id).orElse(null);
+        return vinyls.findById(id).orElse(null);
     }
 
     public void create(VinylCreate inputs) {
@@ -71,6 +75,16 @@ public class VinylService {
 
 
     public void deleteVinyl(Long id) {
-        vinylRepository.deleteById(id);
+        vinyls.deleteById(id);
+    }
+
+    public void updateOne(Long id, @Valid VinylUpdate inputs) {
+    }
+
+    public void deleteOne(Long id) {
+    }
+
+    public Collection<VinylView> getAll() {
+        return vinyls.findAllProjectedBy();
     }
 }
