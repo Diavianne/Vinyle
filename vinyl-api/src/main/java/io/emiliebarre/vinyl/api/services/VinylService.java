@@ -82,6 +82,7 @@ public class VinylService {
     }
 
     public void deleteOne(Long id) {
+        vinyls.deleteById(id);
     }
 
     public Collection<VinylView> getAll() {

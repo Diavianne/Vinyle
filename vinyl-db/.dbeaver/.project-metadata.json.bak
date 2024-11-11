@@ -1,1 +1,1 @@
-{"resources":{"Scripts/Script.sql":{"default-datasource":"postgres-jdbc-1918a8df3ff-21cd2f291e61048f"}}}
+{"resources":{"Scripts/shema.ddl.sql":{"default-schema":"public","default-datasource":"postgres-jdbc-1918a8df3ff-21cd2f291e61048f","default-catalog":"vinyl_db"}}}

@@ -32,7 +32,7 @@ public class VinylController {
         return vinylService.getAll();
     }
 
-    @GetMapping("/vinyls/{id}")
+    @GetMapping("/{id}")
     public Vinyl getVinylById(@PathVariable Long id) {
         return vinylService.getVinylById(id);
     }

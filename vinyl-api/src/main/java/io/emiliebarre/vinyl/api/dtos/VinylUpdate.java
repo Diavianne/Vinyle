@@ -5,6 +5,7 @@ public record VinylUpdate(
         String artist,
         String style,
         String year,
-        String label
+        String label,
+        String image
 ) {
 }
