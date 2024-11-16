@@ -1,6 +1,7 @@
 package io.emiliebarre.vinyl.api.entities;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,24 +14,31 @@ import jakarta.persistence.Table;
 public class Vinyl {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vinyl_id")
+    @Schema(description = "Identifiant unique du vinyle", example = "1")
     private Long id;
 
     @Column(name = "release_title")
+    @Schema(description = "Titre de l'album", example = "La salsa du démon")
     private String title;
 
     @Column(name = "artist_name")
+    @Schema(description = "Nom de l'artiste ou du groupe", example = "Le Grand Orchestre Du Splendid")
     private String artist;
 
     @Column(name = "music_style")
+    @Schema(description = "Genre musical du vinyle", example = "Pop")
     private String style;
 
     @Column(name = "release_year")
+    @Schema(description = "Année de sortie du vinyle", example = "1980")
     private String year;
 
     @Column(name = "label_name")
+    @Schema(description = "Nom du label ayant produit le vinyle", example = "RCA – ZB 8585")
     private String label;
 
     @Column(name = "vinyl_img")
+    @Schema(description = "URL de l'image de la pochette du vinyle", example = "https://example.com/image.jpg")
     private String image;
 
     public Long getId() {
