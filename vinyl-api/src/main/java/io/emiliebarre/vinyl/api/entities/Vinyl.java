@@ -41,6 +41,9 @@ public class Vinyl {
     @Schema(description = "URL de l'image de la pochette du vinyle", example = "https://example.com/image.jpg")
     private String image;
 
+    public Vinyl() {
+    }
+
     public Long getId() {
         return id;
     }

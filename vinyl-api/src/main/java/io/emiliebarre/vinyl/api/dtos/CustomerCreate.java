@@ -1,9 +1,11 @@
 package io.emiliebarre.vinyl.api.dtos;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record CustomerCreate(
-        String firstname,
-        String lastname,
-        String email,
-        String phone
+        @NotBlank String firstname,
+        @NotBlank String lastname,
+        @NotBlank String email,
+        @NotBlank String phone
 ) {
 }

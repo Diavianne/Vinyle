@@ -1,14 +1,16 @@
 package io.emiliebarre.vinyl.api.dtos;
 
+import jakarta.validation.constraints.NotBlank;
+
 import java.time.LocalDate;
 
 public record RentalCreate(
-        LocalDate rentalDate,
+        @NotBlank LocalDate rentalDate,
         LocalDate returnDate,
-        CustomerView customer,
-        String employeeFirstname,
-        String vinylTitle,
-        String vinylArtist,
+        @NotBlank CustomerView customer,
+        @NotBlank String employeeFirstname,
+        @NotBlank String vinylTitle,
+        @NotBlank String vinylArtist,
         String vinylImage
 ) {
 }
