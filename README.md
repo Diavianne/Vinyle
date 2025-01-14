@@ -53,8 +53,8 @@ Le projet Vinyle est un logiciel qui permet de gérer une discothèque de vinyle
 
 ### Modèle Conceptuel des Données (MCD)
 
-un vinyle peut etre LOUER par un client
-un client peut LOUER un vinyle
+- un vinyle peut etre LOUER par un client
+- un client peut LOUER un vinyle
 
 ### Modèle Logique des Données Relationnel (MLD-R)
 
