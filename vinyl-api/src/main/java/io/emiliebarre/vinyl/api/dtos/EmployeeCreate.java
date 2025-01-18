@@ -1,5 +1,6 @@
 package io.emiliebarre.vinyl.api.dtos;
 
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
