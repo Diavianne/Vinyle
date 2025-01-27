@@ -42,9 +42,7 @@ public class VinylService {
         Vinyl entity = new Vinyl();
         entity.setTitle(inputs.title());
         entity.setArtist(inputs.artist());
-        entity.setStyle(inputs.style());
         entity.setYear(inputs.year());
-        entity.setLabel(inputs.label());
         MultipartFile image = inputs.image();
         if (image != null) {
             String imageId = buildImageId(image);

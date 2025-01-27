@@ -12,7 +12,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "t_vinyls")
 public class Vinyl {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vinyl_id")
     @Schema(description = "Identifiant unique du vinyle", example = "1")
     private Long id;
@@ -25,17 +26,9 @@ public class Vinyl {
     @Schema(description = "Nom de l'artiste ou du groupe", example = "Le Grand Orchestre Du Splendid")
     private String artist;
 
-    @Column(name = "music_style")
-    @Schema(description = "Genre musical du vinyle", example = "Pop")
-    private String style;
-
     @Column(name = "release_year")
     @Schema(description = "Année de sortie du vinyle", example = "1980")
     private String year;
-
-    @Column(name = "label_name")
-    @Schema(description = "Nom du label ayant produit le vinyle", example = "RCA – ZB 8585")
-    private String label;
 
     @Column(name = "vinyl_img")
     @Schema(description = "URL de l'image de la pochette du vinyle", example = "https://example.com/image.jpg")
@@ -68,13 +61,6 @@ public class Vinyl {
         this.artist = artist;
     }
 
-    public String getStyle() {
-        return style;
-    }
-
-    public void setStyle(String genre) {
-        this.style = genre;
-    }
 
     public String getYear() {
         return year;
@@ -84,13 +70,6 @@ public class Vinyl {
         this.year = year;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
 
     public String getImage() {
         return image;

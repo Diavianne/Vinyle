@@ -31,13 +31,10 @@ public class EmployeeService {
 
     public void create(EmployeeCreate inputs) {
         Employee entity = new Employee();
+        entity.setIdentifier(inputs.identifier());
         entity.setFirstname(inputs.firstname());
         entity.setLastname(inputs.lastname());
-        entity.setJob(inputs.job());
-        entity.setIdentifier(inputs.identifier());
         entity.setPassword(inputs.password());
-        entity.setManager(inputs.manager());
-        employees.save(entity);
     }
 
     public void updateOne(Long id, EmployeeCreate inputs) {

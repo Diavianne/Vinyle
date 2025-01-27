@@ -4,9 +4,7 @@ public record EmployeeView(
         Long id,
         String firstname,
         String lastname,
-        String job,
         String identifier,
-        String password,
-        String manager
+        String password
 ) {
 }

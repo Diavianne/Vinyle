@@ -10,23 +10,17 @@ public class Employee {
     @Column(name = "employee_id")
     private Long id;
 
+    @Column(name = "identifier", unique = true, nullable = false)
+    private String identifier;
+
     @Column(name = "employee_firstname")
     private String firstname;
 
     @Column(name = "employee_lastname")
     private String lastname;
 
-    @Column(name = "employee_job")
-    private String job;
-
-    @Column(name = "identifier", unique = true)
-    private String identifier;
-
     @Column(name = "employee_password")
     private String password;
-
-    @Column(name = "manager")
-    private String manager;
 
     public Long getId() {
         return id;
@@ -34,6 +28,14 @@ public class Employee {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     public String getFirstname() {
@@ -52,22 +54,6 @@ public class Employee {
         this.lastname = lastname;
     }
 
-    public String getJob() {
-        return job;
-    }
-
-    public void setJob(String job) {
-        this.job = job;
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -76,11 +62,22 @@ public class Employee {
         this.password = password;
     }
 
-    public String getManager() {
-        return manager;
+    public Employee() {
     }
 
-    public void setManager(String manager) {
-        this.manager = manager;
+ public Employee(String identifier, String firstname, String lastname, String password) {
+    this.identifier = identifier;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.password = password;
+}
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
     }
 }

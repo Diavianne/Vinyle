@@ -4,9 +4,7 @@ public record VinylView(
         Long id,
         String title,
         String artist,
-        String style,
         String year,
-        String label,
         String image
 ) {
 }
