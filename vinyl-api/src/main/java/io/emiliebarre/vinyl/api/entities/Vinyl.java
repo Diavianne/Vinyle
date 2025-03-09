@@ -37,6 +37,14 @@ public class Vinyl {
     public Vinyl() {
     }
 
+    public Vinyl(Long id, String title, String artist, String year, String imageId) {
+        this.id = id;
+        this.title = title;
+        this.artist = artist;
+        this.year = year;
+        this.image = imageId;
+    }
+
     public Long getId() {
         return id;
     }
@@ -78,6 +86,17 @@ public class Vinyl {
     public void setImage(String image) {
         this.image = image;
     }
+
+    @Override
+    public String toString() {
+        return "Vinyl{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", artist='" + artist + '\'' +
+                ", year='" + year + '\'' +
+                '}';
+    }
+
 
     public void setImageId(String imageId) {
         this.image = imageId;
