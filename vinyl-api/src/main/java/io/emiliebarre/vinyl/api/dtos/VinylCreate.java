@@ -1,12 +1,18 @@
 package io.emiliebarre.vinyl.api.dtos;
 
+import io.emiliebarre.vinyl.api.dtos.validators.FileType;
+import io.emiliebarre.vinyl.api.dtos.validators.FileSize;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
 public record VinylCreate(
-        @NotBlank String title,
-        @NotBlank String artist,
-        @NotBlank String year,
-        MultipartFile image
-) {
+        @NotBlank @Size(max = 255) String title,
+        @NotBlank @Size(max = 255) String artist,
+        @NotBlank @Size(max = 4) String year,
+        @FileType(types = {
+                MediaType.IMAGE_JPEG_VALUE,
+                MediaType.IMAGE_PNG_VALUE})
+        @FileSize(max = FileSize.FIVE_MB) MultipartFile image) {
 }

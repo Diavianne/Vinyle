@@ -31,7 +31,7 @@ public class Vinyl {
     private String year;
 
     @Column(name = "vinyl_img")
-    @Schema(description = "URL de l'image de la pochette du vinyle", example = "https://example.com/image.jpg")
+    @Schema(description = "URL de l'imageId de la pochette du vinyle", example = "https://example.com/image.jpg")
     private String image;
 
     public Vinyl() {

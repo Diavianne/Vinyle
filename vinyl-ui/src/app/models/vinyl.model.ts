@@ -4,5 +4,4 @@ export interface Vinyl {
   artist: string;
   releaseYear: string;
   img: string;
-  available: boolean;
 }

@@ -5,6 +5,6 @@ public record VinylView(
         String title,
         String artist,
         String year,
-        String image
+        String imageId
 ) {
 }
