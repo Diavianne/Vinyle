@@ -21,25 +21,25 @@ export class SidebarComponent {
     {
       id: '1',
       titre: 'LISTER',
-      icon: 'fas fa-chart-line',
-      url: '',
+      icon: 'fa-solid fa-list-ul',
+      url: './form.component.html',
     },
     {
       id: '2',
       titre: 'AJOUTER',
-      icon: 'fa-solid fa-record-vinyl',
-      url: '',
+      icon: 'a-solid fa-plus',
+      url: './form.component.html',
     },
     {
       id: '3',
       titre: 'MODIFIER',
-      icon: 'fas fa-users',
+      icon: 'fa-solid fa-pen',
       url: '',
     },
     {
       id: '4',
       titre: 'SUPPRIMER',
-      icon: 'fa-solid fa-user',
+      icon: 'fa-solid fa-trash',
       url: '',
     },
   ];

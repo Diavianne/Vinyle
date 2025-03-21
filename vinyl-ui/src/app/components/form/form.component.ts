@@ -19,7 +19,6 @@ export class FormComponent {
     artist: '',
     releaseYear: '',
     img: '',
-    available: true,
   };
 
   constructor(private vinylService: VinylService) {}
@@ -73,7 +72,6 @@ export class FormComponent {
       artist: '',
       releaseYear: '',
       img: '',
-      available: true,
     };
   }
 }
