@@ -26,10 +26,8 @@ CREATE TABLE t_employees (
     employee_id INT GENERATED ALWAYS AS IDENTITY,
     employee_firstname VARCHAR(70),
     employee_lastname VARCHAR (70),
-    identifier VARCHAR (9),
     employee_password VARCHAR (6),
-    CONSTRAINT t_employees_pkey PRIMARY KEY (employee_id),
-	CONSTRAINT t_employees_ukey UNIQUE (identifier)
+    CONSTRAINT t_employees_pkey PRIMARY KEY (employee_id)
 );
 
 SELECT * FROM t_employees;

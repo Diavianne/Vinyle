@@ -6,6 +6,8 @@ import io.emiliebarre.vinyl.api.entities.Employee;
 import io.emiliebarre.vinyl.api.services.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -21,7 +23,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    void create(@Valid @ModelAttribute EmployeeCreate inputs) {
+    void create(@Valid @RequestBody EmployeeCreate inputs) {
         employeeService.create(inputs);
     }
 
