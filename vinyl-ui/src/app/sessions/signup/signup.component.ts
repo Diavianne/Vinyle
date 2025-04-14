@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../../services/session.service';
-import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
 import { SessionsFormComponent } from '../../components/sessions-form/sessions-form.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',

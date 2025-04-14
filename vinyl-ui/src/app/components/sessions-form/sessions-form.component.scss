@@ -128,6 +128,11 @@ form .icons a:hover {
   background-color: #e8d6be;
 }
 
+form span {
+  color: #d9534f;
+  font-size: 14px;
+}
+
 @media (max-width: 480px) {
   form .half {
     flex-direction: column;
