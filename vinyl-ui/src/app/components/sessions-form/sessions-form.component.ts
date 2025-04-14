@@ -9,13 +9,12 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './sessions-form.component.scss',
 })
 export class SessionsFormComponent {
-  title: string = 'NOUVEAU DISQUAIRE';
-
   @Input() formGroup = new FormGroup({
     firstname: new FormControl(''),
     lastname: new FormControl(''),
     password: new FormControl(''),
   });
+  @Input() title = '';
 
   onSubmit() {
     console.log(this.formGroup.value);
