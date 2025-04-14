@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { SignFormComponent } from '../../components/sign-form/sign-form.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../../services/session.service';
 import { HttpClient } from '@angular/common/http';
+import { SessionsFormComponent } from '../../components/sessions-form/sessions-form.component';
 
 @Component({
   selector: 'app-signup',
-  imports: [SignFormComponent],
+  imports: [SessionsFormComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })

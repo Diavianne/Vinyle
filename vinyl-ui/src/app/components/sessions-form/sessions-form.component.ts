@@ -3,12 +3,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-sign-form',
+  selector: 'app-sessions-form',
   imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './sign-form.component.html',
-  styleUrl: './sign-form.component.scss',
+  templateUrl: './sessions-form.component.html',
+  styleUrl: './sessions-form.component.scss',
 })
-export class SignFormComponent {
+export class SessionsFormComponent {
   title: string = 'NOUVEAU DISQUAIRE';
 
   @Input() formGroup = new FormGroup({
