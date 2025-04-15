@@ -5,19 +5,19 @@ Ceci est un prototype.
 # Vinyle
  Projet Soutenance CDA
 
-Le projet Vinyle est un logiciel qui permet de gérer une discothèque de vinyles. L’application s'adresse aux professionnels du secteur musical. Il s’agit d’un logiciel de gestion de stock au format desktop ou tablette utilisable dans une boutique physique à l’instar d’un vidéo club.
+Le projet Vinyle est un logiciel qui permet de gérer une discothèque de vinyles et les mettre à disposition d'un publique spécialisé. L’application s'adresse aux professionnels du secteur musical. Il s’agit d’un logiciel de gestion de stock au format desktop ou tablette utilisable dans une boutique physique à l’instar d’un vidéo club.
 
 ## Principales fonctionnalités
-- Créer un compte (disquaire non enregistré)
-- S'authentifier (disquaire enregistré)
-- Modifier son mot de passe (disquaire)
+
 - Ajouter des disques (disquaire)
-- Modifier l’état des disques (disquaire)
-- Supprimer des disques (disquaire)
+- Ajouter des clients (disquaire)
+- Créer des locations (sorties temportaires du stock)
+- Supprimer des disques (disquaire) ou autres entités
 - Consulter les disques loués d’un client (disquaire)
 
+
 ## Acteurs (rôles)
-- Disquaire (enregistré) : un utilisateur authentifié
+- Disquaire (enregistré) : un utilisateur authentifié par défaut
 
 ## Divers
 - Persona : utilisateur idéal avec son identité, culture, objectifs et frustrations
@@ -29,15 +29,22 @@ Le projet Vinyle est un logiciel qui permet de gérer une discothèque de vinyle
 
 ### Dictionnaire des données
 
+#### Entité : disquaire (utilisateur par défaut)
+
+| Attribut | Type | Longueur/précision | Obligatoire | Exemples |
+| --- | --- | --- | --- | --- | 
+| **Pénom** | Texte | 100| Oui | Dee Jay |
+| **Nom** | Texte | 100| Oui | Dee Jay |
+| **e-mail** | Texte | 100| Oui | dee.jay@jolimail.io |
+| **mot de passe** | Texte | 8| oui | aZerty!9 |
+
 #### Entité : vinyl
 
 | Attribut | Type | Longueur/précision | Obligatoire | Exemple |
 | --- | --- | --- | --- | --- | 
 | **Release** | Texte | 200 | Oui | La Salsa Du Démon |
 | **Nom de l'artiste** | Texte | 200 | Oui | Le Grand Orchestre Du Splendid |
-| Genre | Texte | 200 | Non | Pop |
 | Année de sortie | Date | 10 | Non | 1980 |
-| Label | Texte | 200 | Non | RCA – ZB 8585 |
 | Image | Texte | 41 | Non | La Salsa Du Demon.jpeg |
 
 #### Entité : client
@@ -46,10 +53,7 @@ Le projet Vinyle est un logiciel qui permet de gérer une discothèque de vinyle
 | --- | --- | --- | --- | --- | 
 | **Nom** | Texte | 100| Oui | Dee Jay |
 | **e-mail** | Texte | 100| Oui | dee.jay@jolimail.io |
-| adresse postale | Texte | 400| Non | 64 rue Condorcet |
-| Ville | Texte | 100| Oui | Paris |
-| **code postal** | Texte | 6 | Oui | 75009 |
-
+| adresse postale | Texte | 400| Non | 64 rue Condorcet 98015 VilleLand |
 
 ### Modèle Conceptuel des Données (MCD)
 
@@ -71,8 +75,6 @@ CREATE TABLE t_vinyls (
     release_title VARCHAR(255),
     release_year VARCHAR (4),
     artist_name VARCHAR (255),
-    label_name VARCHAR (255),
-    music_style VARCHAR(255),
     vinyl_img VARCHAR(41),
     CONSTRAINT t_vinyls_pkey PRIMARY KEY (vinyls_id),
 	   CONSTRAINT t_vinyls_ukey UNIQUE (release_title)
@@ -88,8 +90,8 @@ CREATE TABLE t_vinyls (
 CREATE TABLE t_vinyls (
     vinyl_id INT GENERATED ALWAYS AS IDENTITY,
     release_title VARCHAR(255),
-    release_year VARCHAR (4),
     artist_name VARCHAR (255),
+    release_year VARCHAR (4),
     vinyl_img VARCHAR(41),
     CONSTRAINT t_vinyls_pkey PRIMARY KEY (vinyl_id)
 );
@@ -100,7 +102,7 @@ CREATE TABLE t_employees (
     employee_id INT GENERATED ALWAYS AS IDENTITY,
     employee_firstname VARCHAR(70),
     employee_lastname VARCHAR (70),
-    identifier VARCHAR (9),
+    employee_email VARCHAR(254),
     employee_password VARCHAR (6),
     CONSTRAINT t_employees_pkey PRIMARY KEY (employee_id),
 	CONSTRAINT t_employees_ukey UNIQUE (identifier)
