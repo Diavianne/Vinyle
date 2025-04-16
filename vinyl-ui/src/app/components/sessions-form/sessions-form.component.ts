@@ -15,9 +15,13 @@ export class SessionsFormComponent {
     password: new FormControl(''),
   });
   @Input() title = '';
+  @Output() formSubmit = new EventEmitter<any>();
 
   onSubmit() {
-    console.log(this.formGroup.value);
+    if (this.formGroup.valid) {
+      console.log(this.formGroup.value);
+      this.formSubmit.emit();
+    }
   }
 
   isInvalidAndTouchedOrDirty(control: any): boolean {
