@@ -37,14 +37,14 @@
         *ngIf="isInvalidAndTouchedOrDirty(formGroup.controls['password'])"
       >
         <span *ngIf="formGroup.controls['password'].errors?.['required']"
-          >Le mot de passe est requis</span
+          >Un mot de passe de 8 caractères minimum est requis</span
         >
       </small>
     </div>
   </div>
 
   <div class="action">
-    <input type="submit" value="ENREGISTER" />
+    <input type="submit" [value]="titleSubmit" />
     <input type="reset" value="ANNULER" />
     <input
       type="button"

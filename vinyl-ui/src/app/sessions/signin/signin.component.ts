@@ -20,21 +20,21 @@ export class SigninComponent {
     });
   }
   onSubmit() {
-    // if (this.signin.valid) {
-    //   const sessionData = {
-    //     firstname: this.signin.value.firstname,
-    //     lastname: this.signin.value.lastname,
-    //     password: this.signin.value.password,
-    //   };
-    //   console.log('Form submitted:', sessionData);
-    //   this.http
-    //     .post('http://localhost:8080/employees/authenticate', sessionData)
-    //     .subscribe((response) => {
-    //       console.log('Session opened successfully:', response);
-    //       console.log('Form submitted:', this.signin.value);
-    //     });
-    // } else {
-    //   console.log('Form is invalid');
-    // }
+    if (this.signin.valid) {
+      const sessionData = {
+        firstname: this.signin.value.firstname,
+        lastname: this.signin.value.lastname,
+        password: this.signin.value.password,
+      };
+      console.log('Form submitted:', sessionData);
+      this.http
+        .post('http://localhost:8080/employees/authenticate', sessionData)
+        .subscribe((response) => {
+          console.log('Session opened successfully:', response);
+          console.log('Form submitted:', this.signin.value);
+        });
+    } else {
+      console.log('Form is invalid');
+    }
   }
 }

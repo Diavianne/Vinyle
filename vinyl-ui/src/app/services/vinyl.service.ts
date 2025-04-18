@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Vinyl } from '../models/vinyl.model';
 import { HttpClient } from '@angular/common/http';
+
+export interface Vinyl {
+  id?: number;
+  title: string;
+  artist: string;
+  releaseYear: string;
+  img: string;
+}
 
 @Injectable({
   providedIn: 'root',

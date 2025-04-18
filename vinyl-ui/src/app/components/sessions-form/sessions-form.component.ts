@@ -15,6 +15,7 @@ export class SessionsFormComponent {
     password: new FormControl(''),
   });
   @Input() title = '';
+  @Input() titleSubmit = '';
   @Output() formSubmit = new EventEmitter<any>();
 
   onSubmit() {
