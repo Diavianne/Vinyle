@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { VinylService } from '../../services/vinyl.service';
+import { Vinyl, VinylService } from '../../services/vinyl.service';
 import { CommonModule } from '@angular/common';
-import { Vinyl } from '../../models/vinyl.model';
 import { FormsModule } from '@angular/forms';
 
 @Component({

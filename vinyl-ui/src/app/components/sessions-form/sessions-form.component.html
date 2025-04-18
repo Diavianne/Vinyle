@@ -1,0 +1,55 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div class="title">
+    <h2>{{ title }}</h2>
+  </div>
+  <div class="half">
+    <div class="item">
+      <label for="firstname">PRÉNOM</label>
+      <input type="text" id="firstname" formControlName="firstname" />
+      <small
+        class="text-danger"
+        *ngIf="isInvalidAndTouchedOrDirty(formGroup.controls['firstname'])"
+      >
+        <span *ngIf="formGroup.controls['firstname'].errors?.['required']"
+          >Une valeur est requise</span
+        >
+      </small>
+    </div>
+    <div class="item">
+      <label for="lastname">NOM</label>
+      <input type="text" id="lastname" formControlName="lastname" />
+      <small
+        class="text-danger"
+        *ngIf="isInvalidAndTouchedOrDirty(formGroup.controls['lastname'])"
+      >
+        <span *ngIf="formGroup.controls['lastname'].errors?.['required']"
+          >Une valeur est requise</span
+        >
+      </small>
+    </div>
+  </div>
+  <div class="half">
+    <div class="item">
+      <label for="password">MOT DE PASSE</label>
+      <input type="password" id="password" formControlName="password" />
+      <small
+        class="text-danger"
+        *ngIf="isInvalidAndTouchedOrDirty(formGroup.controls['password'])"
+      >
+        <span *ngIf="formGroup.controls['password'].errors?.['required']"
+          >Un mot de passe de 8 caractères minimum est requis</span
+        >
+      </small>
+    </div>
+  </div>
+
+  <div class="action">
+    <input type="submit" [value]="titleSubmit" />
+    <input type="reset" value="ANNULER" />
+    <input
+      type="button"
+      onclick="window.location.href='index.html';"
+      value="RETOUR"
+    />
+  </div>
+</form>

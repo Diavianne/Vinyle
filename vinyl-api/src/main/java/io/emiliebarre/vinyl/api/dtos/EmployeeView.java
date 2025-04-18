@@ -4,7 +4,6 @@ public record EmployeeView(
         Long id,
         String firstname,
         String lastname,
-        String identifier,
         String password
 ) {
 }

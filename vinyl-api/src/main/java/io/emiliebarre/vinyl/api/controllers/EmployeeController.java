@@ -21,7 +21,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    void create(@Valid @ModelAttribute EmployeeCreate inputs) {
+    void create(@Valid @RequestBody EmployeeCreate inputs) {
         employeeService.create(inputs);
     }
 
