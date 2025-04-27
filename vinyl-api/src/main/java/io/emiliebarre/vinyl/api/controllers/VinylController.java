@@ -17,7 +17,7 @@ import java.util.Collection;
 public class VinylController {
     private final VinylService vinylService;
 
-@Autowired
+    @Autowired
     public VinylController(VinylService vinylService) {
         this.vinylService = vinylService;
     }
@@ -37,14 +37,14 @@ public class VinylController {
         return vinylService.getVinylById(id);
     }
 
-   @PutMapping("/{id}")
+    @PutMapping("/{id}")
     void updateOne(@PathVariable("id") Long id,
-                   @Valid @ModelAttribute VinylUpdate inputs) {
+                   @Valid @RequestBody VinylUpdate inputs) {
         vinylService.updateOne(id, inputs);
     }
 
     @DeleteMapping("/{id}")
-    void deleteOne(@PathVariable ("id") Long id) {
+    void deleteOne(@PathVariable("id") Long id) {
         vinylService.deleteOne(id);
     }
 }

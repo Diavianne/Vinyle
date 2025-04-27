@@ -32,7 +32,7 @@ public class Vinyl {
 
     @Column(name = "vinyl_img")
     @Schema(description = "URL de l'image de la pochette du vinyle", example = "https://example.com/image.jpg")
-    private String image;
+    private String imageId;
 
     public Vinyl() {
     }
@@ -42,7 +42,7 @@ public class Vinyl {
         this.title = title;
         this.artist = artist;
         this.year = year;
-        this.image = imageId;
+        this.imageId = imageId;
     }
 
     public Long getId() {
@@ -80,11 +80,11 @@ public class Vinyl {
 
 
     public String getImage() {
-        return image;
+        return imageId;
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.imageId = imageId;
     }
 
     @Override
@@ -99,6 +99,6 @@ public class Vinyl {
 
 
     public void setImageId(String imageId) {
-        this.image = imageId;
+        this.imageId = imageId;
     }
 }
