@@ -39,7 +39,7 @@ public class VinylController {
 
     @PutMapping("/{id}")
     void updateOne(@PathVariable("id") Long id,
-                   @Valid @RequestBody VinylUpdate inputs) {
+                   @Valid @ModelAttribute VinylUpdate inputs) {
         vinylService.updateOne(id, inputs);
     }
 
