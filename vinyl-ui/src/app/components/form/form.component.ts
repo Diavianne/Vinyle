@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormGroup,
@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { VinylService } from '../../services/vinyl.service';
-import { Vinyl } from '../../models/vinyl.model';
+import { Vinyl } from '../../services/vinyl.service';
 
 @Component({
   selector: 'app-form',
@@ -34,6 +34,18 @@ export class FormComponent implements OnInit {
       ]),
       image: new FormControl(null),
     });
+    this.loadVinyls();
+  }
+
+  loadVinyls(): void {
+    this.vinylService.getVinyls().subscribe(
+      (data) => {
+        this.vinyls = data;
+      },
+      (error) => {
+        console.error('Erreur lors du chargement des vinyles', error);
+      }
+    );
   }
 
   onSubmit() {
@@ -52,17 +64,38 @@ export class FormComponent implements OnInit {
       }
 
       console.log("Données envoyées à l'API :", formData);
-
-      this.vinylService.createVinyl(formData).subscribe({
-        next: (newVinyl) => {
-          console.log('Vinyle ajouté avec succès :', newVinyl);
-          this.vinyls.push(newVinyl); // Ajout à la liste locale
-          this.cancelForm();
-        },
-        error: (err) => {
-          console.error("Erreur lors de l'ajout du vinyle :", err);
-        },
-      });
+      if (this.editingVinyl) {
+        // Si on édite un vinyle existant
+        this.vinylService
+          .updateVinyl(this.editingVinyl.id!, formData)
+          .subscribe({
+            next: (updatedVinyl) => {
+              console.log('Vinyle mis à jour avec succès :', updatedVinyl);
+              const index = this.vinyls.findIndex(
+                (v) => v.id === updatedVinyl.id
+              );
+              if (index > -1) {
+                this.vinyls[index] = updatedVinyl;
+              }
+              this.cancelForm();
+            },
+            error: (err) => {
+              console.error('Erreur lors de la mise à jour du vinyle :', err);
+            },
+          });
+      } else {
+        // Si on ajoute un nouveau vinyle
+        this.vinylService.createVinyl(formData).subscribe({
+          next: (newVinyl) => {
+            console.log('Vinyle ajouté avec succès :', newVinyl);
+            this.vinyls.push(newVinyl); // Ajout à la liste locale
+            this.cancelForm();
+          },
+          error: (err) => {
+            console.error("Erreur lors de l'ajout du vinyle :", err);
+          },
+        });
+      }
     }
   }
 
@@ -76,15 +109,28 @@ export class FormComponent implements OnInit {
 
   editVinyl(vinyl: Vinyl) {
     this.editingVinyl = vinyl;
-    this.formGroup.patchValue(vinyl);
+    this.formGroup.patchValue({
+      title: vinyl.title,
+      artist: vinyl.artist,
+      year: vinyl.year,
+      image: null, // Ne pas pré-remplir le champ image
+    });
     this.showAddForm = true;
   }
 
   deleteVinyl(vinyl: Vinyl) {
-    const index = this.vinyls.indexOf(vinyl);
-    if (index > -1) {
-      this.vinyls.splice(index, 1);
-    }
+    this.vinylService.deleteVinyl(vinyl.id!).subscribe({
+      next: () => {
+        console.log('Vinyle supprimé avec succès :', vinyl);
+        const index = this.vinyls.indexOf(vinyl);
+        if (index > -1) {
+          this.vinyls.splice(index, 1);
+        }
+      },
+      error: (err) => {
+        console.error('Erreur lors de la suppression du vinyle :', err);
+      },
+    });
   }
 
   cancelForm() {

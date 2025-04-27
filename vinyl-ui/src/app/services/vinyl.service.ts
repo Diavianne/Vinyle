@@ -25,11 +25,11 @@ export class VinylService {
     return this.http.post<Vinyl>(this.apiUrl, vinylData);
   }
 
+  updateVinyl(id: number, vinylData: FormData): Observable<Vinyl> {
+    return this.http.put<Vinyl>(`${this.apiUrl}/${id}`, vinylData);
+  }
+
   deleteVinyl(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
-
-//   updateVinyl(vinyl: Vinyl): Observable<Vinyl> {
-//     return this.http.put<Vinyl>(`${this.apiUrl}/${vinyl.id}`, vinyl);
-//   }

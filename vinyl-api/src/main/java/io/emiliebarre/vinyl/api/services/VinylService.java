@@ -67,6 +67,12 @@ public class VinylService {
     }
 
     public void updateOne(Long id, VinylUpdate inputs) {
+        Vinyl entity = vinyls.findById(id).get();
+        entity.setTitle(inputs.title());
+        entity.setArtist(inputs.artist());
+        entity.setYear(inputs.year());
+        MultipartFile image = inputs.image();
+        vinyls.save(entity);
 
     }
 
