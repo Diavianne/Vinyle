@@ -45,18 +45,20 @@ export class CustomerProfilComponent implements OnInit {
   }
 
   deleteCustomer(customer: Customer) {
-    this.customerService.deleteCustomer(customer.id!).subscribe({
-      next: () => {
-        console.log('Client supprimé avec succès', customer);
-        const index = this.customers.indexOf(customer);
-        if (index > 1) {
-          this.customers.splice(index, 1);
-        }
-      },
-      error: (err) => {
-        console.error('Erreur lors de la suppression du client', err);
-      },
-    });
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce client ?')) {
+      this.customerService.deleteCustomer(customer.id!).subscribe({
+        next: () => {
+          console.log('Client supprimé avec succès', customer);
+          const index = this.customers.indexOf(customer);
+          if (index > 1) {
+            this.customers.splice(index, 1);
+          }
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression du client', err);
+        },
+      });
+    }
   }
   editCustomer(customer: Customer) {
     this.editingCustomer = customer;
