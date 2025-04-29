@@ -38,7 +38,7 @@ SELECT * FROM t_employees;
 
 CREATE TABLE t_customers
 (
-    customer_id     INT GENERATED ALWAYS AS IDENTITY NOT NULL,
+    customer_id     INT GENERATED ALWAYS AS IDENTITY,
     customer_email  VARCHAR(254),
     customer_name   VARCHAR(100),
     customer_address VARCHAR(255),

@@ -38,14 +38,15 @@ export class FormComponent implements OnInit {
   }
 
   loadVinyls(): void {
-    this.vinylService.getVinyls().subscribe(
-      (data) => {
+    this.vinylService.getVinyls().subscribe({
+      next: (data) => {
         this.vinyls = data;
+        console.log('Liste des vinyles:', this.vinyls);
       },
-      (error) => {
+      error: (error) => {
         console.error('Erreur lors du chargement des vinyles', error);
-      }
-    );
+      },
+    });
   }
 
   onSubmit() {
@@ -71,12 +72,10 @@ export class FormComponent implements OnInit {
           .subscribe({
             next: (updatedVinyl) => {
               console.log('Vinyle mis à jour avec succès :', updatedVinyl);
-              const index = this.vinyls.findIndex(
-                (v) => v.id === updatedVinyl.id
+
+              this.vinyls = this.vinyls.map((v) =>
+                v.id === updatedVinyl.id ? updatedVinyl : v
               );
-              if (index > -1) {
-                this.vinyls[index] = updatedVinyl;
-              }
               this.cancelForm();
             },
             error: (err) => {
@@ -89,6 +88,7 @@ export class FormComponent implements OnInit {
           next: (newVinyl) => {
             console.log('Vinyle ajouté avec succès :', newVinyl);
             this.vinyls.push(newVinyl); // Ajout à la liste locale
+            // Recharger la liste des vinyles
             this.cancelForm();
           },
           error: (err) => {
@@ -119,18 +119,20 @@ export class FormComponent implements OnInit {
   }
 
   deleteVinyl(vinyl: Vinyl) {
-    this.vinylService.deleteVinyl(vinyl.id!).subscribe({
-      next: () => {
-        console.log('Vinyle supprimé avec succès :', vinyl);
-        const index = this.vinyls.indexOf(vinyl);
-        if (index > -1) {
-          this.vinyls.splice(index, 1);
-        }
-      },
-      error: (err) => {
-        console.error('Erreur lors de la suppression du vinyle :', err);
-      },
-    });
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce vinyle ?')) {
+      this.vinylService.deleteVinyl(vinyl.id!).subscribe({
+        next: () => {
+          console.log('Vinyle supprimé avec succès :', vinyl);
+          const index = this.vinyls.indexOf(vinyl);
+          if (index > -1) {
+            this.vinyls.splice(index, 1);
+          }
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression du vinyle :', err);
+        },
+      });
+    }
   }
 
   cancelForm() {
