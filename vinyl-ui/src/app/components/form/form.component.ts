@@ -72,12 +72,10 @@ export class FormComponent implements OnInit {
           .subscribe({
             next: (updatedVinyl) => {
               console.log('Vinyle mis à jour avec succès :', updatedVinyl);
-              const index = this.vinyls.findIndex(
-                (v) => v.id === updatedVinyl.id
+
+              this.vinyls = this.vinyls.map((v) =>
+                v.id === updatedVinyl.id ? updatedVinyl : v
               );
-              if (index > -1) {
-                this.vinyls[index] = updatedVinyl;
-              }
               this.cancelForm();
             },
             error: (err) => {
@@ -90,7 +88,7 @@ export class FormComponent implements OnInit {
           next: (newVinyl) => {
             console.log('Vinyle ajouté avec succès :', newVinyl);
             this.vinyls.push(newVinyl); // Ajout à la liste locale
-            this.loadVinyls(); // Recharger la liste des vinyles
+            // Recharger la liste des vinyles
             this.cancelForm();
           },
           error: (err) => {

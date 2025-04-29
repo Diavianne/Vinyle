@@ -66,14 +66,22 @@ public class VinylService {
         vinyls.deleteById(id);
     }
 
-    public void updateOne(Long id, VinylUpdate inputs) {
-        Vinyl entity = vinyls.findById(id).get();
+    public Vinyl updateOne(Long id, VinylUpdate inputs) {
+        Vinyl entity = vinyls.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vinyl not found with id " + id));
+
         entity.setTitle(inputs.title());
         entity.setArtist(inputs.artist());
         entity.setYear(inputs.year());
-        MultipartFile image = inputs.image();
-        vinyls.save(entity);
 
+        MultipartFile image = inputs.image();
+        if (image != null && !image.isEmpty()) {
+            String imageId = buildImageId(image);
+            storeImage(image, imageId);
+            entity.setImageId(imageId);
+        }
+
+        return vinyls.save(entity);
     }
 
     public void deleteOne(Long id) {
