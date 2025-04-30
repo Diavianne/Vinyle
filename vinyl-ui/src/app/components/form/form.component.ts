@@ -76,6 +76,7 @@ export class FormComponent implements OnInit {
               this.vinyls = this.vinyls.map((v) =>
                 v.id === updatedVinyl.id ? updatedVinyl : v
               );
+              this.loadVinyls(); // Recharger la liste des vinyles
               this.cancelForm();
             },
             error: (err) => {
