@@ -100,7 +100,13 @@
     </thead>
     <tbody>
       <tr *ngFor="let vinyl of vinyls">
-        <td><img [src]="vinyl.image" alt="Pochette" width="50" /></td>
+        <td>
+          <img
+            [src]="vinyl.image || 'default-image.jpg'"
+            alt="Pochette"
+            width="50"
+          />
+        </td>
         <td>{{ vinyl.title }}</td>
         <td>{{ vinyl.artist }}</td>
         <td>{{ vinyl.year }}</td>
