@@ -136,6 +136,11 @@ export class FormComponent implements OnInit {
     }
   }
 
+  getImageUrl(imageId: string): string {
+    const baseUrl = 'http://localhost:8080/uploads';
+    return `${baseUrl}${imageId}`;
+  }
+
   cancelForm() {
     this.showAddForm = false;
     this.editingVinyl = null;
