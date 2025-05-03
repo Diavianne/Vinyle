@@ -83,7 +83,7 @@
         <th>Titre</th>
         <th>Artiste</th>
         <th>Année</th>
-        <th>Actions</th>
+        <th>Modifier/Supprimer</th>
       </tr>
     </thead>
     <tbody>
@@ -100,11 +100,14 @@
         <td>{{ vinyl.artist }}</td>
         <td>{{ vinyl.year }}</td>
         <td>
-          <button class="btn btn-sm" (click)="editVinyl(vinyl)">
-            Modifier
+          <button class="btn btn-sm me-5" (click)="editVinyl(vinyl)">
+            <i class="bi bi-pencil"></i>
           </button>
-          <button class="btn btn-sm btn-danger" (click)="deleteVinyl(vinyl)">
-            Supprimer
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="deleteVinyl(vinyl)"
+          >
+            <i class="bi bi-trash3"></i>
           </button>
         </td>
       </tr>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -45,7 +45,8 @@ export class SidebarComponent {
   ];
 
   private lastSelectedMenu: Menu | undefined;
-  constructor(private router: Router) {}
+
+  private router = inject(Router);
 
   ngOnInit(): void {}
 

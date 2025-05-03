@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { VinylService } from './../../services/vinyl.service';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormGroup,
@@ -6,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { VinylService } from '../../services/vinyl.service';
+
 import { Vinyl } from '../../services/vinyl.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class FormComponent implements OnInit {
   showAddForm = false;
   editingVinyl: any = null;
 
-  constructor(private vinylService: VinylService) {}
+  private vinylService = inject(VinylService);
 
   ngOnInit() {
     // Initialisation du formulaire

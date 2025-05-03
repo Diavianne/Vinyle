@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -21,7 +21,8 @@ export class CustomerProfilComponent implements OnInit {
   editingCustomer: any | null = null;
   currentCustomers: any;
 
-  constructor(private customerService: CustomerService) {}
+  private customerService = inject(CustomerService);
+
   ngOnInit() {
     // Initialisation du formulaire
     this.formGroup = new FormGroup({
