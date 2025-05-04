@@ -73,14 +73,14 @@ export class CustomerProfilComponent implements OnInit {
 
   onSubmit() {
     if (this.formGroup.valid) {
-      const customerData = new FormData();
-
-      // Ajoutez les champs au FormData
-      customerData.append('name', this.formGroup.get('name')?.value);
-      customerData.append('email', this.formGroup.get('email')?.value);
-      customerData.append('address', this.formGroup.get('address')?.value);
+      const customerData: Customer = {
+        name: this.formGroup.get('name')?.value,
+        email: this.formGroup.get('email')?.value,
+        address: this.formGroup.get('address')?.value,
+      };
 
       console.log("Données envoyées à l'API :", customerData);
+
       if (this.editingCustomer) {
         this.customerService
           .updateCustomer(this.editingCustomer.id, customerData)
