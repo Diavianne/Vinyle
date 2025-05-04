@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { FormComponent } from './components/form/form.component';
 import { CustomerProfilComponent } from './components/customer-profil/customer-profil.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { RentalComponent } from './components/rental/rental.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -18,4 +19,5 @@ export const routes: Routes = [
     title: 'Client',
   },
   { path: 'sidebar', component: SidebarComponent, title: 'Sidebar' },
+  { path: 'rental', component: RentalComponent, title: 'Location' },
 ];
