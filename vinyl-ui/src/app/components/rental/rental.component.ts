@@ -6,7 +6,8 @@ import {
 } from '@angular/forms';
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RentalService } from '../../services/rental.service';
+import { Rental, RentalService } from '../../services/rental.service';
+import { Vinyl } from '../../services/vinyl.service';
 
 @Component({
   selector: 'app-rental',
@@ -16,8 +17,8 @@ import { RentalService } from '../../services/rental.service';
 })
 export class RentalComponent implements OnInit {
   formGroup!: FormGroup;
-  vinylResults: any[] = [];
-  selectedVinyls: any[] = [];
+  vinylResults: Vinyl[] = [];
+  selectedVinyls: Vinyl[] = [];
   customerFound = false;
   customerError = false;
 
@@ -54,29 +55,29 @@ export class RentalComponent implements OnInit {
     const title = this.formGroup.get('vinylSearch')?.value;
     if (title && title.length > 2) {
       this.rentalService.searchVinylsByTitle(title).subscribe({
-        next: (data: any[]) => (this.vinylResults = data),
+        next: (data: Vinyl[]) => (this.vinylResults = data),
         error: () => (this.vinylResults = []),
       });
     }
   }
 
-  addVinyl(vinyl: any): void {
+  addVinyl(vinyl: Vinyl): void {
     if (!this.selectedVinyls.find((v) => v.id === vinyl.id)) {
       this.selectedVinyls.push(vinyl);
     }
   }
 
-  removeVinyl(vinyl: any): void {
+  removeVinyl(vinyl: Vinyl): void {
     this.selectedVinyls = this.selectedVinyls.filter((v) => v.id !== vinyl.id);
   }
 
   onSubmit(): void {
     if (!this.customerFound || this.selectedVinyls.length === 0) return;
 
-    const rentalData = {
+    const rentalData: Rental = {
       customerEmail: this.formGroup.get('customerEmail')?.value,
       returnDate: this.formGroup.get('returnDate')?.value,
-      vinylIds: this.selectedVinyls.map((v) => v.id),
+      vinylIds: this.formGroup.get('vinylSearch')?.value,
     };
 
     this.rentalService.createRental(rentalData).subscribe({
@@ -87,7 +88,7 @@ export class RentalComponent implements OnInit {
         this.vinylResults = [];
         this.customerFound = false;
       },
-      error: (err: any[]) => {
+      error: (err: Error[]) => {
         console.error('Erreur lors de la création', err);
         alert('Échec de la création de la location.');
       },

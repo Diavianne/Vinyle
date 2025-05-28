@@ -16,15 +16,14 @@ import { CommonModule } from '@angular/common';
 })
 export class CustomerProfilComponent implements OnInit {
   formGroup!: FormGroup;
-  customers: any[] = []; // Liste des clients
+  customers: Customer[] = [];
   showAddForm = false;
-  editingCustomer: any | null = null;
-  currentCustomers: any;
+  editingCustomer!: Customer;
+  currentCustomers: Customer[] = [];
 
   private customerService = inject(CustomerService);
 
   ngOnInit() {
-    // Initialisation du formulaire
     this.formGroup = new FormGroup({
       name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -83,7 +82,7 @@ export class CustomerProfilComponent implements OnInit {
 
       if (this.editingCustomer) {
         this.customerService
-          .updateCustomer(this.editingCustomer.id, customerData)
+          .updateCustomer(this.editingCustomer.id!, customerData)
           .subscribe({
             next: (updateCustomer) => {
               console.log('Client mis à jour avec succès', updateCustomer);
@@ -101,7 +100,6 @@ export class CustomerProfilComponent implements OnInit {
             },
           });
       } else {
-        // Créer un nouveau client
         this.customerService.createCustomer(customerData).subscribe({
           next: (newCustomer) => {
             console.log('Client créé avec succès', newCustomer);
@@ -119,7 +117,7 @@ export class CustomerProfilComponent implements OnInit {
 
   cancelForm() {
     this.showAddForm = false;
-    this.editingCustomer = null;
+    this.editingCustomer;
     this.formGroup.reset();
   }
 }

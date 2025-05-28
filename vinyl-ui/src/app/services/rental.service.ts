@@ -18,7 +18,9 @@ export class RentalService {
   private readonly apiUrl = 'http://localhost:8080/rentals';
 
   searchCustomerByEmail(email: string): Observable<Customer[]> {
-    return this.http.get<any>(`${this.apiUrl}/customers/search?email=${email}`);
+    return this.http.get<Customer[]>(
+      `${this.apiUrl}/customers/search?email=${email}`
+    );
   }
 
   searchVinylsByTitle(title: string): Observable<Vinyl[]> {

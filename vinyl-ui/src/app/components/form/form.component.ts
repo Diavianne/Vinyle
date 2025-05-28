@@ -18,14 +18,13 @@ import { Vinyl } from '../../services/vinyl.service';
 })
 export class FormComponent implements OnInit {
   formGroup!: FormGroup;
-  vinyls: any[] = []; // Liste des vinyles
+  vinyls: Vinyl[] = [];
   showAddForm = false;
-  editingVinyl: any = null;
+  editingVinyl: Vinyl | null = null;
 
   private vinylService = inject(VinylService);
 
   ngOnInit() {
-    // Initialisation du formulaire
     this.formGroup = new FormGroup({
       title: new FormControl('', Validators.required),
       artist: new FormControl('', Validators.required),
@@ -54,7 +53,6 @@ export class FormComponent implements OnInit {
     if (this.formGroup.valid) {
       const formData = new FormData();
 
-      // Ajoutez les champs au FormData
       formData.append('title', this.formGroup.get('title')?.value);
       formData.append('artist', this.formGroup.get('artist')?.value);
       formData.append('year', this.formGroup.get('year')?.value);
@@ -77,7 +75,7 @@ export class FormComponent implements OnInit {
               this.vinyls = this.vinyls.map((v) =>
                 v.id === updatedVinyl.id ? updatedVinyl : v
               );
-              this.loadVinyls(); // Recharger la liste des vinyles
+              this.loadVinyls();
               this.cancelForm();
             },
             error: (err) => {
@@ -90,7 +88,6 @@ export class FormComponent implements OnInit {
           next: (newVinyl) => {
             console.log('Vinyle ajouté avec succès :', newVinyl);
             this.vinyls.push(newVinyl); // Ajout à la liste locale
-            // Recharger la liste des vinyles
             this.cancelForm();
           },
           error: (err) => {
@@ -115,7 +112,7 @@ export class FormComponent implements OnInit {
       title: vinyl.title,
       artist: vinyl.artist,
       year: vinyl.year,
-      image: null, // Ne pas pré-remplir le champ image
+      image: null,
     });
     this.showAddForm = true;
   }
@@ -138,7 +135,7 @@ export class FormComponent implements OnInit {
   }
 
   getImageUrl(imageId: string): string {
-    const baseUrl = 'http://localhost:8080/uploads';
+    const baseUrl = 'http://localhost:8080/uploads/dest';
     return `${baseUrl}${imageId}`;
   }
 

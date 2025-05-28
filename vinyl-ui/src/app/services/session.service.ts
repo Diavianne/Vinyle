@@ -19,4 +19,8 @@ export class SessionService {
   createSession(sessionData: Session): Observable<Session> {
     return this.http.post<Session>(this.apiUrl, sessionData);
   }
+
+  authenticate(sessionData: Session): Observable<Session> {
+    return this.http.post<Session>(`${this.apiUrl}/authenticate`, sessionData);
+  }
 }

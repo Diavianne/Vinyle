@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SessionsFormComponent } from '../../components/sessions-form/sessions-form.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-signin',
@@ -11,31 +13,38 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SigninComponent {
   signin: FormGroup;
+  private readonly router = inject(Router);
+  private readonly http = inject(HttpClient);
+  private readonly fb = inject(FormBuilder);
+  private readonly sessionService = inject(SessionService);
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor() {
     this.signin = this.fb.group({
-      firstname: ['', [Validators.required]],
-      lastname: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
   }
 
-  onSubmit() {
+  signIn() {
     if (this.signin.valid) {
-      const sessionData = {
-        firstname: this.signin.value.firstname,
-        lastname: this.signin.value.lastname,
-        password: this.signin.value.password,
-      };
-      console.log('Form submitted:', sessionData);
-      this.http
-        .post('http://localhost:8080/employees/authenticate', sessionData)
-        .subscribe((response) => {
-          console.log('Session opened successfully:', response);
-          console.log('Form submitted:', this.signin.value);
-        });
+      const sessionData = this.signin.value;
+      this.sessionService.authenticate(sessionData).subscribe({
+        next: () => {
+          this.navigateApp();
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Erreur ouverture session:', error);
+          alert(
+            "Erreur lors de l'ouverture de la session. Vérifiez vos identifiants."
+          );
+        },
+      });
     } else {
-      console.log('Form is invalid');
+      console.log('Formulaire invalide');
     }
+  }
+
+  navigateApp() {
+    this.router.navigate(['dashboard']);
   }
 }

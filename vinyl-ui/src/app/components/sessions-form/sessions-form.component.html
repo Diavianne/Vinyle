@@ -2,6 +2,7 @@
   <div class="title">
     <h2>{{ title }}</h2>
   </div>
+  @if (showNameFields){
   <div class="half">
     <div class="item">
       <label for="firstname">PRÉNOM</label>
@@ -26,14 +27,25 @@
       }
     </div>
   </div>
+  }
   <div class="half">
+    <div class="item">
+      <label for="email">ADRESSE EMAIL</label>
+      <input type="email" id="email" formControlName="email" />
+      @if (isInvalidAndTouchedOrDirty(formGroup.controls['email'])) {
+      <small class="text-danger">
+        @if (formGroup.controls['email'].errors?.['required']){
+        <span>Une adresse email est requise</span>}
+      </small>
+      }
+    </div>
     <div class="item">
       <label for="password">MOT DE PASSE</label>
       <input type="password" id="password" formControlName="password" />
       @if (isInvalidAndTouchedOrDirty(formGroup.controls['password'])) {
       <small class="text-danger">
         @if (formGroup.controls['password'].errors?.['required']){
-        <span> >Un mot de passe de 8 caractères minimum est requis</span>}
+        <span>Un mot de passe de 8 caractères minimum est requis</span>}
       </small>
       }
     </div>
@@ -42,10 +54,6 @@
   <div class="action">
     <input type="submit" [value]="titleSubmit" />
     <input type="reset" value="ANNULER" />
-    <input
-      type="button"
-      onclick="window.location.href='index.html';"
-      value="RETOUR"
-    />
+    <input type="button" (click)="goBack()" value="RETOUR" />
   </div>
 </form>
