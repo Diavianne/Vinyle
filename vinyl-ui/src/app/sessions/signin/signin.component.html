@@ -1,6 +1,7 @@
 <app-sessions-form
   [title]="'SE CONNECTER'"
   [formGroup]="signin"
-  (formSubmit)="onSubmit()"
+  (formSubmit)="signIn()"
   [titleSubmit]="'OUVRIR LA SESSION'"
+  [showNameFields]="false"
 ></app-sessions-form>

@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,14 +16,14 @@ import { CommonModule } from '@angular/common';
 })
 export class CustomerProfilComponent implements OnInit {
   formGroup!: FormGroup;
-  customers: any[] = []; // Liste des clients
+  customers: Customer[] = [];
   showAddForm = false;
-  editingCustomer: any | null = null;
-  currentCustomers: any;
+  editingCustomer!: Customer;
+  currentCustomers: Customer[] = [];
 
-  constructor(private customerService: CustomerService) {}
+  private customerService = inject(CustomerService);
+
   ngOnInit() {
-    // Initialisation du formulaire
     this.formGroup = new FormGroup({
       name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -72,17 +72,17 @@ export class CustomerProfilComponent implements OnInit {
 
   onSubmit() {
     if (this.formGroup.valid) {
-      const customerData = new FormData();
-
-      // Ajoutez les champs au FormData
-      customerData.append('name', this.formGroup.get('name')?.value);
-      customerData.append('email', this.formGroup.get('email')?.value);
-      customerData.append('address', this.formGroup.get('address')?.value);
+      const customerData: Customer = {
+        name: this.formGroup.get('name')?.value,
+        email: this.formGroup.get('email')?.value,
+        address: this.formGroup.get('address')?.value,
+      };
 
       console.log("Données envoyées à l'API :", customerData);
+
       if (this.editingCustomer) {
         this.customerService
-          .updateCustomer(this.editingCustomer.id, customerData)
+          .updateCustomer(this.editingCustomer.id!, customerData)
           .subscribe({
             next: (updateCustomer) => {
               console.log('Client mis à jour avec succès', updateCustomer);
@@ -100,7 +100,6 @@ export class CustomerProfilComponent implements OnInit {
             },
           });
       } else {
-        // Créer un nouveau client
         this.customerService.createCustomer(customerData).subscribe({
           next: (newCustomer) => {
             console.log('Client créé avec succès', newCustomer);
@@ -118,7 +117,7 @@ export class CustomerProfilComponent implements OnInit {
 
   cancelForm() {
     this.showAddForm = false;
-    this.editingCustomer = null;
+    this.editingCustomer;
     this.formGroup.reset();
   }
 }

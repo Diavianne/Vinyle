@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   FormsModule,
@@ -17,11 +18,13 @@ export class SessionsFormComponent {
   @Input() formGroup = new FormGroup({
     firstname: new FormControl(''),
     lastname: new FormControl(''),
+    email: new FormControl(''),
     password: new FormControl(''),
   });
   @Input() title = '';
   @Input() titleSubmit = '';
-  @Output() formSubmit = new EventEmitter<any>();
+  @Output() formSubmit = new EventEmitter<void>();
+  @Input() showNameFields: boolean = false;
 
   onSubmit() {
     if (this.formGroup.valid) {
@@ -30,7 +33,11 @@ export class SessionsFormComponent {
     }
   }
 
-  isInvalidAndTouchedOrDirty(control: any): boolean {
+  goBack() {
+    window.history.back();
+  }
+
+  isInvalidAndTouchedOrDirty(control: AbstractControl): boolean {
     return control.invalid && (control.dirty || control.touched);
   }
 }

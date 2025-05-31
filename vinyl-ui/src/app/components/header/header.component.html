@@ -1,20 +1,28 @@
-<header class="container-fluid shadow-lg fixed-top z-n1">
+<header class="container-fluid shadow-lg fixed-top z-1">
   <div class="row align-items-center justify-content-between py-2 px-3">
     <div class="col-auto">
-      <!-- Your logo or brand name here -->
-      <a class="navbar-brand" href="#">Brand</a>
+      <a class="navbar-brand" href="#">Vinyl App</a>
     </div>
     <div class="col">
-      <!-- <nav class="nav justify-content-center">
-        <a class="nav-link" href="#">Link 1</a>
-        <a class="nav-link" href="#">Link 2</a>
-        <a class="nav-link" href="#">Link 3</a>
-      </nav> -->
+      <nav class="nav justify-content-center">
+        <ul class="nav">
+          @for (menu of menuItems ; track menu.id) {
+          <li class="nav-item d-flex align-items-center" style="margin: 0 2rem">
+            <i class="{{ menu.icon }}"></i>&nbsp;
+            <a
+              class="nav-link text-dark"
+              [routerLink]="menu.url"
+              routerLinkActive="active"
+              >{{ menu.titre }}</a
+            >
+          </li>
+          }
+        </ul>
+      </nav>
     </div>
     <div class="col-auto">
       <form class="d-flex align-items-center">
         <i class="bi bi-search"></i>
-        <!-- Example icon, make sure to include Bootstrap Icons -->
         <input
           class="form-control ms-2"
           type="search"

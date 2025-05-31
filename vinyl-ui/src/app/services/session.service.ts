@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 interface Session {
@@ -14,10 +14,13 @@ interface Session {
 })
 export class SessionService {
   private readonly apiUrl = ' http://localhost:8080/employees';
-
-  constructor(private http: HttpClient) {}
+  private readonly http = inject(HttpClient);
 
   createSession(sessionData: Session): Observable<Session> {
     return this.http.post<Session>(this.apiUrl, sessionData);
+  }
+
+  authenticate(sessionData: Session): Observable<Session> {
+    return this.http.post<Session>(`${this.apiUrl}/authenticate`, sessionData);
   }
 }

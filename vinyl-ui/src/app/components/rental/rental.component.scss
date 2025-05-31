@@ -1,16 +1,16 @@
-.vinyl-list {
+.rental-list {
   background-color: #fff;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.vinyl-header {
+.rental-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
 }
-.vinyl-form {
+.rental-form {
   background-color: #f8f9fa;
   padding: 1.5rem;
   border-radius: 4px;
@@ -33,4 +33,7 @@
   background-color: #e8d6be;
   border-color: #e8d6be;
 }
-// background-color: #4b6d76 #acd1d9 #3A4F46;
+.error {
+  color: #d9534f;
+  font-size: 0.775rem;
+}

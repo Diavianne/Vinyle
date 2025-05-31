@@ -1,0 +1,82 @@
+<div class="rental-list">
+  <div class="rental-header">
+    <h2>Créer une location</h2>
+  </div>
+  <div class="rental-form">
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email du client</label>
+        <input
+          type="text"
+          id="email"
+          formControlName="email"
+          class="form-control"
+          (blur)="searchCustomer()"
+        />
+
+        @if (customerFound) {
+        <div class="success">Client trouvé</div>
+        } @if (customerError) {
+        <div class="error">Client introuvable</div>
+        }
+      </div>
+      <div class="form-group">
+        <label for="vinylSearch">Recherche de Vinyle</label>
+        <input
+          type="text"
+          id="vinylSearch"
+          formControlName="vinylSearch"
+          class="form-control"
+          (input)="searchVinyl()"
+        />
+      </div>
+
+      @if(vinylResults.length > 0) {
+      <div>
+        <h4>Résultats de recherche</h4>
+        <ul class="vinyl-results">
+          @for (vinyl of vinylResults; track vinyl.id) {
+          <li (click)="addVinyl(vinyl)">
+            {{ vinyl.title }} - {{ vinyl.artist }}
+          </li>
+          }
+        </ul>
+      </div>
+      } @if(selectedVinyls.length > 0) {
+      <div>
+        <h4>Vinyles sélectionnés</h4>
+        <ul class="selected-vinyls">
+          @for (vinyl of selectedVinyls; track vinyl.id) {
+          <li>
+            {{ vinyl.title }} - {{ vinyl.artist }}
+            <button (click)="removeVinyl(vinyl)">Retirer</button>
+          </li>
+          }
+        </ul>
+      </div>
+      }
+
+      <div class="form-group">
+        <label for="returnDate">Date de retour (optionelle)</label>
+        <input
+          type="date"
+          id="returnDate"
+          formControlName="returnDate"
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="
+            !formGroup.valid || !customerFound || selectedVinyls.length === 0
+          "
+        >
+          Valider la location
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

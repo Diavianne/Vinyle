@@ -6,7 +6,8 @@
     </button>
   </div>
 
-  <div *ngIf="showAddForm" class="customer-form">
+  @if (showAddForm) {
+  <div class="customer-form">
     <h3>{{ editingCustomer ? "Modifier" : "Ajouter" }} un client</h3>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
       <div class="form-group">
@@ -17,14 +18,9 @@
           formControlName="name"
           class="form-control"
         />
-        <div
-          *ngIf="
-            formGroup.get('name')?.invalid && formGroup.get('name')?.touched
-          "
-          class="error"
-        >
-          Le Nom est requis
-        </div>
+        @if (formGroup.get('name')?.invalid && formGroup.get('name')?.touched) {
+        <div class="error">Le Nom est requis</div>
+        }
       </div>
       <div class="form-group">
         <label for="email">Email</label>
@@ -34,14 +30,10 @@
           formControlName="email"
           class="form-control"
         />
-        <div
-          *ngIf="
-            formGroup.get('email')?.invalid && formGroup.get('email')?.touched
-          "
-          class="error"
-        >
-          L'email est requis
-        </div>
+        @if (formGroup.get('email')?.invalid && formGroup.get('email')?.touched)
+        {
+        <div class="error">L'email est requis</div>
+        }
       </div>
       <div class="form-group">
         <label for="address">Adresse</label>
@@ -51,15 +43,10 @@
           formControlName="address"
           class="form-control"
         />
-        <div
-          *ngIf="
-            formGroup.get('address')?.invalid &&
-            formGroup.get('address')?.touched
-          "
-          class="error"
-        >
-          L'adresse est requise
-        </div>
+        @if(formGroup.get('address')?.invalid &&
+        formGroup.get('address')?.touched) {
+        <div class="error">L'adresse est requise</div>
+        }
       </div>
 
       <div class="form-actions">
@@ -72,6 +59,7 @@
       </div>
     </form>
   </div>
+  }
 
   <table class="table">
     <thead>
@@ -83,7 +71,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let customer of customers">
+      @for (customer of customers; track customer.id){
+      <tr>
         <td>{{ customer.name }}</td>
         <td>{{ customer.email }}</td>
         <td>{{ customer.address }}</td>
@@ -99,6 +88,7 @@
           </button>
         </td>
       </tr>
+      }
     </tbody>
   </table>
 </div>
