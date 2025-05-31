@@ -7,6 +7,7 @@ import { CustomerProfilComponent } from './components/customer-profil/customer-p
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RentalComponent } from './components/rental/rental.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { HeaderComponent } from './components/header/header.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -17,22 +18,16 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     title: 'Tableau de bord',
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'form', component: FormComponent, title: 'Vinyle' },
+      {
+        path: 'customer-profil',
+        component: CustomerProfilComponent,
+        title: 'Client',
+      },
+      { path: 'rental', component: RentalComponent, title: 'Location' },
+      { path: 'header', component: HeaderComponent, title: 'header' },
+    ],
   },
-  // children: [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    title: 'Tableau de bord',
-  },
-  { path: 'form', component: FormComponent, title: 'Vinyle' },
-  {
-    path: 'customer-profil',
-    component: CustomerProfilComponent,
-    title: 'Client',
-  },
-  { path: 'sidebar', component: SidebarComponent, title: 'Sidebar' },
-  { path: 'rental', component: RentalComponent, title: 'Location' },
-  // ],
-  // },
 ];

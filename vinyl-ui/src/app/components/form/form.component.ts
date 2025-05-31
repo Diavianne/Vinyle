@@ -70,7 +70,7 @@ export class FormComponent implements OnInit {
           .updateVinyl(this.editingVinyl.id!, formData)
           .subscribe({
             next: (updatedVinyl) => {
-              console.log('Vinyle mis à jour avec succès :', updatedVinyl);
+              alert('Vinyle mis à jour avec succès');
 
               this.vinyls = this.vinyls.map((v) =>
                 v.id === updatedVinyl.id ? updatedVinyl : v
@@ -86,7 +86,7 @@ export class FormComponent implements OnInit {
         // Si on ajoute un nouveau vinyle
         this.vinylService.createVinyl(formData).subscribe({
           next: (newVinyl) => {
-            console.log('Vinyle ajouté avec succès :', newVinyl);
+            alert('Vinyle ajouté avec succès');
             this.vinyls.push(newVinyl); // Ajout à la liste locale
             this.cancelForm();
           },

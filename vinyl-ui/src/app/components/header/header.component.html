@@ -1,4 +1,4 @@
-<header class="container-fluid shadow-lg fixed-top z-n1">
+<header class="container-fluid shadow-lg fixed-top z-1">
   <div class="row align-items-center justify-content-between py-2 px-3">
     <div class="col-auto">
       <a class="navbar-brand" href="#">Vinyl App</a>
@@ -7,9 +7,14 @@
       <nav class="nav justify-content-center">
         <ul class="nav">
           @for (menu of menuItems ; track menu.id) {
-          <li class="nav-item mx-2 d-flex align-items-center">
+          <li class="nav-item d-flex align-items-center" style="margin: 0 2rem">
             <i class="{{ menu.icon }}"></i>&nbsp;
-            <a class="nav-link" [routerLink]="menu.id">{{ menu.titre }}</a>
+            <a
+              class="nav-link text-dark"
+              [routerLink]="menu.url"
+              routerLinkActive="active"
+              >{{ menu.titre }}</a
+            >
           </li>
           }
         </ul>

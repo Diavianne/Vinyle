@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -10,7 +11,7 @@ export interface Menu {
 }
 @Component({
   selector: 'app-header',
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -20,19 +21,19 @@ export class HeaderComponent {
       id: '1',
       titre: 'VINYLE',
       icon: 'bi bi-vinyl-fill',
-      url: './form.component.html',
+      url: '/dashboard/form',
     },
     {
       id: '2',
       titre: 'CLIENT',
-      icon: 'a-solid fa-plus',
-      url: './customer-profil.component.html',
+      icon: 'fa-solid fa-user',
+      url: '/dashboard/customer-profil',
     },
     {
       id: '3',
       titre: 'LOCATION',
       icon: 'fa-solid fa-pen',
-      url: './rental.component.html',
+      url: '/dashboard/rental',
     },
   ];
 }
