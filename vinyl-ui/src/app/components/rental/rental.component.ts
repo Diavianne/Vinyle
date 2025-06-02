@@ -8,6 +8,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Rental, RentalService } from '../../services/rental.service';
 import { Vinyl } from '../../services/vinyl.service';
+import { Customer } from '../../services/customer.service';
 
 @Component({
   selector: 'app-rental',
@@ -16,6 +17,11 @@ import { Vinyl } from '../../services/vinyl.service';
   styleUrl: './rental.component.scss',
 })
 export class RentalComponent implements OnInit {
+  rentals: Rental[] = [];
+  customers: Customer[] = [];
+  vinyls: Vinyl[] = [];
+  showAddForm = false;
+
   formGroup!: FormGroup;
   vinylResults: Vinyl[] = [];
   selectedVinyls: Vinyl[] = [];
@@ -23,6 +29,8 @@ export class RentalComponent implements OnInit {
   customerError = false;
 
   private rentalService = inject(RentalService);
+  private customerService = inject(RentalService);
+  private vinylService = inject(RentalService);
 
   ngOnInit() {
     this.formGroup = new FormGroup({

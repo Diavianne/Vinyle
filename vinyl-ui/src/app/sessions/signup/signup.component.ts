@@ -1,4 +1,4 @@
-import { SessionService } from '../../services/session.service';
+import { AuthService } from '../auth.service';
 import { Component, inject } from '@angular/core';
 import { SessionsFormComponent } from '../../components/sessions-form/sessions-form.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,7 +16,9 @@ export class SignupComponent {
   private readonly router = inject(Router);
   private readonly http = inject(HttpClient);
   private readonly fb = inject(FormBuilder);
-  private readonly sessionService = inject(SessionService);
+  private readonly sessionService = inject(AuthService);
+
+  message: string = '';
 
   constructor() {
     this.signup = this.fb.group({

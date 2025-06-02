@@ -21,7 +21,8 @@
       </nav>
     </div>
     <div class="col-auto">
-      <form class="d-flex align-items-center">
+      <div class="d-flex align-items-center"></div>
+      <form class="d-flex align-items-center me-2 mb-0">
         <i class="bi bi-search"></i>
         <input
           class="form-control ms-2"
@@ -29,6 +30,9 @@
           placeholder="Rechercher"
           aria-label="Search"
         />
+        <button (click)="onLogout()" class="btn ms-5 d-flex align-items-center">
+          <i class="bi bi-box-arrow-right me-2"></i>
+        </button>
       </form>
     </div>
   </div>

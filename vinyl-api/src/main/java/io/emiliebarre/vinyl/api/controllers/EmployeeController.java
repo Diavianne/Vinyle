@@ -1,11 +1,14 @@
 package io.emiliebarre.vinyl.api.controllers;
 
+import io.emiliebarre.vinyl.api.dtos.EmployeeAuthenticateService;
 import io.emiliebarre.vinyl.api.dtos.EmployeeCreate;
 import io.emiliebarre.vinyl.api.dtos.EmployeeView;
 import io.emiliebarre.vinyl.api.entities.Employee;
 import io.emiliebarre.vinyl.api.services.EmployeeService;
+import io.emiliebarre.vinyl.api.dtos.Authentication;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -13,16 +16,26 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
-    private final EmployeeService employeeService;
+    public final EmployeeService employeeService;
+    public final EmployeeAuthenticateService authService;
+
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService) {
+    public EmployeeController(EmployeeService employeeService, EmployeeAuthenticateService authService) {
         this.employeeService = employeeService;
+        this.authService = authService;
     }
 
     @PostMapping
-    void create(@Valid @RequestBody EmployeeCreate inputs) {
+    @ResponseStatus(HttpStatus.CREATED)
+    void create(@RequestBody @Valid EmployeeCreate inputs) {
         employeeService.create(inputs);
+    }
+
+    @PostMapping("/authenticate")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String authenticate(@RequestBody Authentication inputs) {
+        return authService.authenticate(inputs);
     }
 
     @GetMapping

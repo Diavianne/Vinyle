@@ -1,5 +1,6 @@
+import { AuthService } from '../../sessions/auth.service';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 export interface Menu {
@@ -16,6 +17,8 @@ export interface Menu {
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
+  SessionService = inject(AuthService);
+
   public menuItems: Array<Menu> = [
     {
       id: '1',
@@ -36,4 +39,8 @@ export class HeaderComponent {
       url: '/dashboard/rental',
     },
   ];
+
+  onLogout() {
+    this.SessionService.logOut();
+  }
 }
