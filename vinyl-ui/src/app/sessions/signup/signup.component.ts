@@ -32,11 +32,12 @@ export class SignupComponent {
   onSubmit() {
     if (this.signup.valid) {
       const sessionData = this.signup.value;
-      console.log('Form submitted:', sessionData);
       this.sessionService.createSession(sessionData).subscribe((response) => {
-        console.log('Session created successfully:', response);
         alert('Vous êtes inscrit avec succès.');
-        this.router.navigate(['dashboard']);
+        this.sessionService.authenticate({
+          email: sessionData.email,
+          password: sessionData.password,
+        });
       });
     } else {
       console.log('Form is invalid');
