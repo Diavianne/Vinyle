@@ -1,0 +1,36 @@
+.vinyl-list {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.vinyl-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.vinyl-form {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+}
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+.btn-primary {
+  background-color: #e8d6be;
+  border-color: #e8d6be;
+}
+// background-color: #4b6d76 #acd1d9 #3A4F46;

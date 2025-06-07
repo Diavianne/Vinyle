@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 @Table(name = "t_employees")
 public class Employee {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id")
     private Long id;
 
@@ -16,17 +17,14 @@ public class Employee {
     @Column(name = "employee_lastname")
     private String lastname;
 
-    @Column(name = "employee_job")
-    private String job;
-
-    @Column(name = "identifier", unique = true)
-    private String identifier;
+    @Column(name = "employee_email", unique = true)
+    private String email;
 
     @Column(name = "employee_password")
     private String password;
 
-    @Column(name = "manager")
-    private String manager;
+    public Employee() {
+    }
 
     public Long getId() {
         return id;
@@ -52,20 +50,12 @@ public class Employee {
         this.lastname = lastname;
     }
 
-    public String getJob() {
-        return job;
+    public String getEmail() {
+        return email;
     }
 
-    public void setJob(String job) {
-        this.job = job;
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -76,11 +66,19 @@ public class Employee {
         this.password = password;
     }
 
-    public String getManager() {
-        return manager;
+    public Employee(String firstname, String lastname, String email, String password) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
     }
 
-    public void setManager(String manager) {
-        this.manager = manager;
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
     }
 }

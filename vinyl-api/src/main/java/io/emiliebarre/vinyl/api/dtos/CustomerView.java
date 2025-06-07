@@ -2,9 +2,8 @@ package io.emiliebarre.vinyl.api.dtos;
 
 public record CustomerView(
         Long id,
-        String firstname,
-        String lastname,
+        String name,
         String email,
-        String phone
+        String address
 ) {
 }

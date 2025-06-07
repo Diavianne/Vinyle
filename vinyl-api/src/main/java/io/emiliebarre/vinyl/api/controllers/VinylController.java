@@ -7,6 +7,7 @@ import io.emiliebarre.vinyl.api.entities.Vinyl;
 import io.emiliebarre.vinyl.api.services.VinylService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -17,7 +18,7 @@ import java.util.Collection;
 public class VinylController {
     private final VinylService vinylService;
 
-@Autowired
+    @Autowired
     public VinylController(VinylService vinylService) {
         this.vinylService = vinylService;
     }
@@ -37,14 +38,15 @@ public class VinylController {
         return vinylService.getVinylById(id);
     }
 
-   @PutMapping("/{id}")
-    void updateOne(@PathVariable("id") Long id,
-                   @Valid @ModelAttribute VinylUpdate inputs) {
-        vinylService.updateOne(id, inputs);
+    @PutMapping("/{id}")
+    public ResponseEntity<Vinyl> updateOne(@PathVariable("id") Long id,
+                                           @Valid @ModelAttribute VinylUpdate inputs) {
+        Vinyl updatedVinyl = vinylService.updateOne(id, inputs);
+        return ResponseEntity.ok(updatedVinyl);
     }
 
     @DeleteMapping("/{id}")
-    void deleteOne(@PathVariable ("id") Long id) {
+    void deleteOne(@PathVariable("id") Long id) {
         vinylService.deleteOne(id);
     }
 }

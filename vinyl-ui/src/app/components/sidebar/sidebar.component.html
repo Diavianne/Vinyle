@@ -1,0 +1,38 @@
+<aside class="sidebar ms-3">
+  <div class="mt-5">
+    <h4>VINYLES</h4>
+    <ul>
+      @for (menu of menuItems ; track menu.id) {
+      <li class="mb-3">
+        <i class="{{ menu.icon }}"></i>&nbsp;
+        <a [routerLink]="menu.id">{{ menu.titre }}</a>
+      </li>
+      }
+    </ul>
+  </div>
+
+  <div class="mt-5">
+    <h4>CLIENTS</h4>
+    <ul>
+      @for (menu of menuItems ; track menu.id) {
+      <li class="mb-3">
+        <i class="{{ menu.icon }}"></i>&nbsp;
+        {{ menu.titre }}
+      </li>
+      }
+    </ul>
+  </div>
+  <div style="margin-top: 100px">
+    <h4>DISQUAIRES</h4>
+    <ul>
+      <li>
+        <i class="bx bxs-plus-square"></i>
+        <a [routerLink]="'/signin'">Sign in</a>
+      </li>
+      <li>
+        <i class="bx bxs-caret-right-circle"></i>
+        <a [routerLink]="'/signup'">Sign up</a>
+      </li>
+    </ul>
+  </div>
+</aside>

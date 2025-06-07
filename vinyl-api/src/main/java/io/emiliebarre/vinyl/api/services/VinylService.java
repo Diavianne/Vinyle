@@ -5,15 +5,13 @@ import io.emiliebarre.vinyl.api.dtos.VinylUpdate;
 import io.emiliebarre.vinyl.api.dtos.VinylView;
 import io.emiliebarre.vinyl.api.entities.Vinyl;
 import io.emiliebarre.vinyl.api.repositories.VinylRepository;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -22,29 +20,19 @@ public class VinylService {
     @Value("${vinylapi.uploads.dest}")
     private String uploadsDest;
 
-
     private final VinylRepository vinyls;
 
-    @Autowired
+
     public VinylService(VinylRepository vinylRepository) {
         this.vinyls = vinylRepository;
     }
 
-    public List<Vinyl> getAllVinyls() {
-        return vinyls.findAll();
-    }
-
-    public Vinyl getVinylById(Long id) {
-        return vinyls.findById(id).orElse(null);
-    }
 
     public void create(VinylCreate inputs) {
         Vinyl entity = new Vinyl();
         entity.setTitle(inputs.title());
         entity.setArtist(inputs.artist());
-        entity.setStyle(inputs.style());
         entity.setYear(inputs.year());
-        entity.setLabel(inputs.label());
         MultipartFile image = inputs.image();
         if (image != null) {
             String imageId = buildImageId(image);
@@ -53,6 +41,14 @@ public class VinylService {
         }
         vinyls.save(entity);
 
+    }
+
+    private String buildImageId(MultipartFile image) {
+        UUID uuid = UUID.randomUUID();
+        String name = image.getOriginalFilename();
+        int index = name.lastIndexOf('.');
+        String ext = name.substring(index, name.length());
+        return uuid + ext;
     }
 
     private void storeImage(MultipartFile image, String imageId) {
@@ -65,20 +61,27 @@ public class VinylService {
         }
     }
 
-    private String buildImageId(MultipartFile image) {
-        UUID uuid = UUID.randomUUID();
-        String name = image.getOriginalFilename();
-        int index = name.lastIndexOf('.');
-        String ext = name.substring(index, name.length());
-        return uuid + ext;
-    }
-
 
     public void deleteVinyl(Long id) {
         vinyls.deleteById(id);
     }
 
-    public void updateOne(Long id, @Valid VinylUpdate inputs) {
+    public Vinyl updateOne(Long id, VinylUpdate inputs) {
+        Vinyl entity = vinyls.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vinyl not found with id " + id));
+
+        entity.setTitle(inputs.title());
+        entity.setArtist(inputs.artist());
+        entity.setYear(inputs.year());
+
+        MultipartFile image = inputs.image();
+        if (image != null && !image.isEmpty()) {
+            String imageId = buildImageId(image);
+            storeImage(image, imageId);
+            entity.setImageId(imageId);
+        }
+
+        return vinyls.save(entity);
     }
 
     public void deleteOne(Long id) {
@@ -87,5 +90,10 @@ public class VinylService {
 
     public Collection<VinylView> getAll() {
         return vinyls.findAllProjectedBy();
+    }
+
+
+    public Vinyl getVinylById(Long id) {
+        return vinyls.findById(id).orElse(null);
     }
 }

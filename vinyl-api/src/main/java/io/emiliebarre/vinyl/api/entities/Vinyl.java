@@ -12,7 +12,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "t_vinyls")
 public class Vinyl {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vinyl_id")
     @Schema(description = "Identifiant unique du vinyle", example = "1")
     private Long id;
@@ -25,23 +26,23 @@ public class Vinyl {
     @Schema(description = "Nom de l'artiste ou du groupe", example = "Le Grand Orchestre Du Splendid")
     private String artist;
 
-    @Column(name = "music_style")
-    @Schema(description = "Genre musical du vinyle", example = "Pop")
-    private String style;
-
     @Column(name = "release_year")
     @Schema(description = "Année de sortie du vinyle", example = "1980")
     private String year;
 
-    @Column(name = "label_name")
-    @Schema(description = "Nom du label ayant produit le vinyle", example = "RCA – ZB 8585")
-    private String label;
-
     @Column(name = "vinyl_img")
     @Schema(description = "URL de l'image de la pochette du vinyle", example = "https://example.com/image.jpg")
-    private String image;
+    private String imageId;
 
     public Vinyl() {
+    }
+
+    public Vinyl(Long id, String title, String artist, String year, String imageId) {
+        this.id = id;
+        this.title = title;
+        this.artist = artist;
+        this.year = year;
+        this.imageId = imageId;
     }
 
     public Long getId() {
@@ -68,13 +69,6 @@ public class Vinyl {
         this.artist = artist;
     }
 
-    public String getStyle() {
-        return style;
-    }
-
-    public void setStyle(String genre) {
-        this.style = genre;
-    }
 
     public String getYear() {
         return year;
@@ -84,23 +78,27 @@ public class Vinyl {
         this.year = year;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
 
     public String getImage() {
-        return image;
+        return imageId;
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.imageId = imageId;
     }
 
+    @Override
+    public String toString() {
+        return "Vinyl{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", artist='" + artist + '\'' +
+                ", year='" + year + '\'' +
+                '}';
+    }
+
+
     public void setImageId(String imageId) {
-        this.image = imageId;
+        this.imageId = imageId;
     }
 }

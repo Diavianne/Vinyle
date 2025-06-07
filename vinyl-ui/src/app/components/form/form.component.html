@@ -1,0 +1,117 @@
+<div class="vinyl-list">
+  <div class="vinyl-header">
+    <h2>Gestion des Vinyles</h2>
+    <button class="btn btn-primary" (click)="showAddForm = true">
+      Ajouter un vinyle
+    </button>
+  </div>
+  @if(showAddForm) {
+  <div class="vinyl-form">
+    <h3>{{ editingVinyl ? "Modifier" : "Enregistrer" }} un vinyle</h3>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Titre</label>
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          class="form-control"
+        />
+        @if(formGroup.get('title')?.invalid && formGroup.get('title')?.touched)
+        {
+        <div class="error">Le titre est requis</div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="artist">Artiste</label>
+        <input
+          type="text"
+          id="artist"
+          formControlName="artist"
+          class="form-control"
+        />
+        @if(formGroup.get('artist')?.invalid &&
+        formGroup.get('artist')?.touched) {
+        <div class="error">L'artiste est requis.</div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="year">Année de sortie</label>
+        <input
+          type="text"
+          id="year"
+          formControlName="year"
+          class="form-control"
+        />
+        @if(formGroup.get('year')?.invalid && formGroup.get('year')?.touched) {
+        <div class="error">L'année de sortie est requise</div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="image">Pochette</label>
+        <input
+          type="file"
+          id="image"
+          (change)="onFileSelected($event)"
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="formGroup.invalid"
+        >
+          {{ editingVinyl ? "Modifier" : "Enregistrer" }}
+        </button>
+        <button type="button" class="btn" (click)="cancelForm()">
+          Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+  }
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Pochette</th>
+        <th>Titre</th>
+        <th>Artiste</th>
+        <th>Année</th>
+        <th>Modifier/Supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (vinyl of vinyls; track vinyl.id) {
+      <tr>
+        <td>
+          <img
+            [src]="vinyl.image || 'default-image.jpg'"
+            alt="Pochette"
+            width="50"
+          />
+        </td>
+        <td>{{ vinyl.title }}</td>
+        <td>{{ vinyl.artist }}</td>
+        <td>{{ vinyl.year }}</td>
+        <td>
+          <button class="btn btn-sm me-5" (click)="editVinyl(vinyl)">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="deleteVinyl(vinyl)"
+          >
+            <i class="bi bi-trash3"></i>
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
