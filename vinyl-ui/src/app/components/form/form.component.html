@@ -91,9 +91,10 @@
       <tr>
         <td>
           <img
-            [src]="vinyl.image || 'default-image.jpg'"
+            [src]="getImageUrl(vinyl.imageId)"
             alt="Pochette"
             width="50"
+            onerror="this.onerror=null;this.src='default-image.jpg';"
           />
         </td>
         <td>{{ vinyl.title }}</td>

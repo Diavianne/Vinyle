@@ -7,7 +7,7 @@ export interface Vinyl {
   title: string;
   artist: string;
   year: string;
-  image: string;
+  imageId: string;
 }
 
 @Injectable({

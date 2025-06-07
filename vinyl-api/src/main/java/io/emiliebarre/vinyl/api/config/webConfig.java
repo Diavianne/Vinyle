@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,8 +28,8 @@ import javax.crypto.spec.SecretKeySpec;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+public class webConfig implements WebMvcConfigurer {
 
-public class webConfig {
 
     @Value("${io.emiliebarre.vinyl.api.toursBcrypt}")
     private int tours;
@@ -60,6 +61,12 @@ public class webConfig {
                         .allowedOrigins(origins);
             }
         };
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/uploads/dest/**")
+                .addResourceLocations("file:uploads/dest/");
     }
 
     @Bean
@@ -97,6 +104,7 @@ public class webConfig {
                         .requestMatchers(HttpMethod.POST, "/employees", "/employees/authenticate").anonymous()
                         .requestMatchers(HttpMethod.GET, "/vinyls", "/vinyls/{id}", "/vinyls/search/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/customers", "/customers/{id}").permitAll()
+                        .requestMatchers("/uploads/dest/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))

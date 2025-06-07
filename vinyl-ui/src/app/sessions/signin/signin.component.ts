@@ -28,7 +28,7 @@ export class SigninComponent {
       const credentials = this.signin.value;
       this.sessionService.authenticate(credentials);
     } else {
-      console.log('Formulaire invalide');
+      console.error('Formulaire invalide');
     }
   }
 }

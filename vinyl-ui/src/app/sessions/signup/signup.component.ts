@@ -40,7 +40,7 @@ export class SignupComponent {
         });
       });
     } else {
-      console.log('Form is invalid');
+      console.error('Form is invalid');
     }
   }
 }
