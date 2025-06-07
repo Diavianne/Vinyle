@@ -8,6 +8,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RentalComponent } from './components/rental/rental.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
+import { authGuard } from './sessions/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -18,6 +19,7 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     title: 'Tableau de bord',
+    canMatch: [authGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'form', component: FormComponent, title: 'Vinyle' },
@@ -30,4 +32,5 @@ export const routes: Routes = [
       { path: 'header', component: HeaderComponent, title: 'header' },
     ],
   },
+  { path: '**', redirectTo: 'home' },
 ];

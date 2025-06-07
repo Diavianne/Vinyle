@@ -94,10 +94,9 @@ public class webConfig {
                 .cors(withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/employees", "/employees/authenticate").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/vinyls").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/customers").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/employees").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/employees", "/employees/authenticate").anonymous()
+                        .requestMatchers(HttpMethod.GET, "/vinyls", "/vinyls/{id}", "/vinyls/search/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/customers", "/customers/{id}").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))

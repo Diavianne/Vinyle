@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -7,6 +7,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sessions-form',
@@ -25,6 +26,7 @@ export class SessionsFormComponent {
   @Input() titleSubmit = '';
   @Output() formSubmit = new EventEmitter<void>();
   @Input() showNameFields: boolean = false;
+  router = inject(Router);
 
   onSubmit() {
     if (this.formGroup.valid) {
@@ -34,7 +36,7 @@ export class SessionsFormComponent {
   }
 
   goBack() {
-    window.history.back();
+    this.router.navigate(['/home']);
   }
 
   isInvalidAndTouchedOrDirty(control: AbstractControl): boolean {
