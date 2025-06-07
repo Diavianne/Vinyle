@@ -40,8 +40,7 @@ export class FormComponent implements OnInit {
   loadVinyls(): void {
     this.vinylService.getVinyls().subscribe({
       next: (data) => {
-        this.vinyls = data;
-        console.log('Liste des vinyles:', this.vinyls);
+        this.vinyls = data.filter((v) => v != null);
       },
       error: (error) => {
         console.error('Erreur lors du chargement des vinyles', error);
@@ -63,7 +62,6 @@ export class FormComponent implements OnInit {
         formData.append('image', imageFile);
       }
 
-      console.log("Données envoyées à l'API :", formData);
       if (this.editingVinyl) {
         // Si on édite un vinyle existant
         this.vinylService
@@ -87,7 +85,8 @@ export class FormComponent implements OnInit {
         this.vinylService.createVinyl(formData).subscribe({
           next: (newVinyl) => {
             alert('Vinyle ajouté avec succès');
-            this.vinyls.push(newVinyl); // Ajout à la liste locale
+            this.vinyls.push(newVinyl);
+            this.loadVinyls();
             this.cancelForm();
           },
           error: (err) => {
@@ -121,7 +120,6 @@ export class FormComponent implements OnInit {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce vinyle ?')) {
       this.vinylService.deleteVinyl(vinyl.id!).subscribe({
         next: () => {
-          console.log('Vinyle supprimé avec succès :', vinyl);
           const index = this.vinyls.indexOf(vinyl);
           if (index > -1) {
             this.vinyls.splice(index, 1);
@@ -134,9 +132,11 @@ export class FormComponent implements OnInit {
     }
   }
 
-  getImageUrl(imageId: string): string {
-    const baseUrl = 'http://localhost:8080/uploads/dest';
-    return `${baseUrl}${imageId}`;
+  getImageUrl(imageId: string | null | undefined): string {
+    if (!imageId) {
+      return 'default-image.jpg';
+    }
+    return `http://localhost:8080/uploads/dest/${imageId}`;
   }
 
   cancelForm() {

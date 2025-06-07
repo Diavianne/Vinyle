@@ -23,7 +23,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    void create(@Valid @ModelAttribute CustomerCreate inputs) {
+    void create(@Valid @RequestBody CustomerCreate inputs) {
         customerService.create(inputs);
     }
 
@@ -39,7 +39,7 @@ public class CustomerController {
 
     @PutMapping("/{id}")
     void updateOne(@PathVariable("id") Long id,
-                   @Valid @ModelAttribute CustomerUpdate inputs) {
+                   @Valid @RequestBody CustomerUpdate inputs) {
         customerService.updateOne(id, inputs);
     }
 

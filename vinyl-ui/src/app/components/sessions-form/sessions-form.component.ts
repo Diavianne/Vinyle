@@ -30,7 +30,6 @@ export class SessionsFormComponent {
 
   onSubmit() {
     if (this.formGroup.valid) {
-      console.log(this.formGroup.value);
       this.formSubmit.emit();
     }
   }
