@@ -1,15 +1,14 @@
 package io.emiliebarre.vinyl.api.config;
 
-import com.nimbusds.jose.Algorithm;
+
+import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -19,6 +18,8 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -26,7 +27,7 @@ import javax.crypto.spec.SecretKeySpec;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@EnableWebSecurity
+
 public class webConfig {
 
     @Value("${io.emiliebarre.vinyl.api.toursBcrypt}")
@@ -66,11 +67,11 @@ public class webConfig {
         return new BCryptPasswordEncoder(tours);
     }
 
-//    @Bean
-//    JwtProvider jwtProvider() {
-//        Algorithm algorithm = Algorithm.HMAC256(secret);
-//        return new JwtProvider(algorithm, hasExpiration, expirationMinutes, issuer);
-//    }
+    @Bean
+    public JWTProvider jwtProvider() {
+        com.auth0.jwt.algorithms.Algorithm algo = com.auth0.jwt.algorithms.Algorithm.HMAC256(secret);
+        return new JWTProvider(algo, issuer, hasExpiration, expirationMinutes);
+    }
 
     @Bean
     JwtDecoder jwtDecoder() {
@@ -87,13 +88,18 @@ public class webConfig {
         return decoder;
     }
 
-//    @Bean
-//    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        return http.cors(Customizer.withDefaults()).csrf((csrf) -> csrf.disable())
-//                .authorizeHttpRequests((req) -> req
-//                        .requestMatchers(HttpMethod.POST, "/employees", "/employees/authenticate").anonymous()
-//                        .authorizeHttpRequests((reqs) -> reqs.anyRequest().authenticated())
-//                        .oauth2ResourceServer(srv -> srv.jwt(withDefaults()))
-//                        .build()
-//    }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .cors(withDefaults())
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.POST, "/employees", "/employees/authenticate").anonymous()
+                        .requestMatchers(HttpMethod.GET, "/vinyls", "/vinyls/{id}", "/vinyls/search/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/customers", "/customers/{id}").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))
+                .build();
+    }
 }

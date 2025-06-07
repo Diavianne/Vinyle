@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 public record EmployeeUpdate(
         @NotBlank @Size(max = 50) String firstname,
         @NotBlank @Size(max = 50) String lastname,
+        @NotBlank @Size(max = 100) String email,
         @NotBlank @Size(max = 50) String password
 ) {
 }

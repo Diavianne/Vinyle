@@ -6,6 +6,7 @@ import io.emiliebarre.vinyl.api.dtos.EmployeeView;
 import io.emiliebarre.vinyl.api.entities.Employee;
 import io.emiliebarre.vinyl.api.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +18,12 @@ import java.util.List;
 public class EmployeeService {
 
     private final EmployeeRepository repos;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public EmployeeService(EmployeeRepository repos) {
+    public EmployeeService(EmployeeRepository repos, PasswordEncoder passwordEncoder) {
         this.repos = repos;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Employee> getAllEmployees() {
@@ -36,7 +39,8 @@ public class EmployeeService {
         Employee entity = new Employee();
         entity.setFirstname(inputs.firstname());
         entity.setLastname(inputs.lastname());
-        entity.setPassword(inputs.password());
+        entity.setEmail(inputs.email());
+        entity.setPassword(passwordEncoder.encode(inputs.password()));
         repos.save(entity);
     }
 
