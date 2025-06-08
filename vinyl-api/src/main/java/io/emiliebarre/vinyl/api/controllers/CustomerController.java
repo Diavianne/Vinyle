@@ -39,7 +39,7 @@ public class CustomerController {
 
     @GetMapping("/search")
     public Collection<CustomerView> searchByEmail(@RequestParam String email) {
-        return customerService.searchByEmail(email);
+        return customerService.getByEmail(email);
     }
 
     @PutMapping("/{id}")

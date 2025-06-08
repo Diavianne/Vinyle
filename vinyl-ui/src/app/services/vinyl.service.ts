@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 export interface Vinyl {
-  id?: number;
+  id: number;
   title: string;
   artist: string;
   year: string;
@@ -31,5 +31,12 @@ export class VinylService {
 
   deleteVinyl(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  searchVinyls(query: string): Observable<Vinyl[]> {
+    // Adapte l'URL selon ton backend (exemple avec query param)
+    return this.http.get<Vinyl[]>(`${this.apiUrl}/search`, {
+      params: { q: query },
+    });
   }
 }

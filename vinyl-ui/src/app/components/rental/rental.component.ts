@@ -7,8 +7,7 @@ import {
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Rental, RentalService } from '../../services/rental.service';
-import { Vinyl } from '../../services/vinyl.service';
-import { Customer } from '../../services/customer.service';
+import { Vinyl, VinylService } from '../../services/vinyl.service';
 
 @Component({
   selector: 'app-rental',
@@ -17,89 +16,104 @@ import { Customer } from '../../services/customer.service';
   styleUrl: './rental.component.scss',
 })
 export class RentalComponent implements OnInit {
-  rentals: Rental[] = [];
-  customers: Customer[] = [];
-  vinyls: Vinyl[] = [];
-  showAddForm = false;
-
   formGroup!: FormGroup;
+  rental: Rental | null = null;
+  errorMessage = '';
   vinylResults: Vinyl[] = [];
-  selectedVinyls: Vinyl[] = [];
-  customerFound = false;
-  customerError = false;
+  selectedVinylId: number | null = null;
+  cart: Vinyl[] = [];
 
   private rentalService = inject(RentalService);
-  private customerService = inject(RentalService);
-  private vinylService = inject(RentalService);
+  private vinylService = inject(VinylService);
 
   ngOnInit() {
     this.formGroup = new FormGroup({
-      customerEmail: new FormControl('', [
-        Validators.required,
-        Validators.email,
-      ]),
-      vinylSearch: new FormControl(''),
-      returnDate: new FormControl(''),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      vinylSearch: new FormControl('', [Validators.required]),
     });
   }
 
-  searchCustomer(): void {
-    const email = this.formGroup.get('customerEmail')?.value;
-    if (email) {
-      this.rentalService.searchCustomerByEmail(email).subscribe({
-        next: () => {
-          this.customerFound = true;
-          this.customerError = false;
+  addVinyl() {
+    this.errorMessage = '';
+    const email = this.formGroup.get('email')?.value;
+    const vinylId = this.selectedVinylId;
+
+    if (!email || !vinylId) {
+      this.errorMessage =
+        'Veuillez fournir un e-mail et sélectionner un vinyle.';
+      return;
+    }
+
+    this.rentalService.addVinylToRental(email, vinylId).subscribe({
+      next: (data) => (this.rental = data),
+      error: (err) =>
+        (this.errorMessage = err.error?.message || 'Erreur lors de l’ajout'),
+    });
+  }
+
+  validateRental() {
+    if (!this.rental) return;
+    this.rentalService.validateRental(this.rental.id).subscribe({
+      next: (data) => (this.rental = data),
+      error: () => (this.errorMessage = 'Erreur lors de la validation'),
+    });
+  }
+
+  onVinylSearch() {
+    const query = this.formGroup.get('vinylSearch')?.value || '';
+    this.selectedVinylId = null; // reset selection on new search
+    if (query.length < 2) {
+      this.vinylResults = [];
+      return;
+    }
+    this.vinylService.searchVinyls(query).subscribe((results) => {
+      this.vinylResults = results;
+    });
+  }
+
+  selectVinyl(vinyl: Vinyl) {
+    this.formGroup.patchValue({
+      vinylSearch: `${vinyl.title} – ${vinyl.artist}`,
+    });
+    this.selectedVinylId = vinyl.id ?? null; // <-- Corrige ici
+    this.vinylResults = [];
+  }
+
+  addToCart() {
+    if (this.selectedVinylId) {
+      const vinyl = this.vinylResults.find(
+        (v) => v.id === this.selectedVinylId
+      );
+      if (vinyl && !this.cart.some((v) => v.id === vinyl.id)) {
+        this.cart.push(vinyl);
+      }
+      this.formGroup.patchValue({ vinylSearch: '' });
+      this.selectedVinylId = null;
+    }
+  }
+
+  removeFromCart(vinyl: Vinyl) {
+    this.cart = this.cart.filter((v) => v.id !== vinyl.id);
+  }
+
+  addVinylsToRental() {
+    this.errorMessage = '';
+    const email = this.formGroup.get('email')?.value;
+    if (!email || this.cart.length === 0) {
+      this.errorMessage =
+        'Veuillez sélectionner un client et au moins un vinyle.';
+      return;
+    }
+    // Appelle le service pour chaque vinyle du panier
+    this.cart.forEach((vinyl, index) => {
+      this.rentalService.addVinylToRental(email, vinyl.id).subscribe({
+        next: (data) => {
+          this.rental = data;
+          if (index === this.cart.length - 1) this.cart = [];
         },
-        error: () => {
-          this.customerFound = false;
-          this.customerError = true;
-        },
+        error: (err) =>
+          (this.errorMessage = err.error?.message || 'Erreur lors de l’ajout'),
       });
-    }
-  }
-
-  searchVinyl(): void {
-    const title = this.formGroup.get('vinylSearch')?.value;
-    if (title && title.length > 2) {
-      this.rentalService.searchVinylsByTitle(title).subscribe({
-        next: (data: Vinyl[]) => (this.vinylResults = data),
-        error: () => (this.vinylResults = []),
-      });
-    }
-  }
-
-  addVinyl(vinyl: Vinyl): void {
-    if (!this.selectedVinyls.find((v) => v.id === vinyl.id)) {
-      this.selectedVinyls.push(vinyl);
-    }
-  }
-
-  removeVinyl(vinyl: Vinyl): void {
-    this.selectedVinyls = this.selectedVinyls.filter((v) => v.id !== vinyl.id);
-  }
-
-  onSubmit(): void {
-    if (!this.customerFound || this.selectedVinyls.length === 0) return;
-
-    const rentalData: Rental = {
-      customerEmail: this.formGroup.get('customerEmail')?.value,
-      returnDate: this.formGroup.get('returnDate')?.value,
-      vinylIds: this.formGroup.get('vinylSearch')?.value,
-    };
-
-    this.rentalService.createRental(rentalData).subscribe({
-      next: () => {
-        alert('Location créée avec succès.');
-        this.formGroup.reset();
-        this.selectedVinyls = [];
-        this.vinylResults = [];
-        this.customerFound = false;
-      },
-      error: (err: Error[]) => {
-        console.error('Erreur lors de la création', err);
-        alert('Échec de la création de la location.');
-      },
     });
   }
 }
