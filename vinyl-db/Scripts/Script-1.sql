@@ -19,24 +19,6 @@ CREATE TABLE t_employees (
 );
 
 
-CREATE TABLE t_rentals (
-    rental_id INT GENERATED ALWAYS AS IDENTITY,
-    rental_date DATE,
-    return_date DATE,
-    vinyl_id INT,
-    customer_id INT,
-    employee_id INT,
-    CONSTRAINT t_rentals_pkey PRIMARY KEY (rental_id),
-    CONSTRAINT fk_rentals_vinyl FOREIGN KEY (vinyl_id)
-        REFERENCES t_vinyls (vinyl_id)
-        ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT fk_rentals_customer FOREIGN KEY (customer_id)
-        REFERENCES t_customers (customer_id)
-        ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT fk_rentals_employee FOREIGN KEY (employee_id)
-        REFERENCES t_employees (employee_id)
-        ON DELETE SET NULL ON UPDATE CASCADE
-);
 
 
 CREATE TABLE t_customers

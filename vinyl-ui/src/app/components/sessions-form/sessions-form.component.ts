@@ -4,7 +4,6 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Router } from '@angular/router';
