@@ -30,6 +30,10 @@ public class CustomerService {
         return customers.findAllProjectedBy();
     }
 
+    public Collection<CustomerView> searchByEmail(String email) {
+        return customers.findByEmailContainingIgnoreCase(email);
+    }
+
     public Customer getCustomerById(Long id) {
         return customers.findById(id).orElse(null);
     }

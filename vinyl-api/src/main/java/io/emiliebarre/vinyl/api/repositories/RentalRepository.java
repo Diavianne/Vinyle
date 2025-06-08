@@ -1,7 +1,6 @@
 //package io.emiliebarre.vinyl.api.repositories;
 //
 //
-//import io.emiliebarre.vinyl.api.dtos.RentalView;
 //import io.emiliebarre.vinyl.api.entities.Rental;
 //import org.springframework.data.jpa.repository.JpaRepository;
 //import org.springframework.stereotype.Repository;
@@ -10,6 +9,7 @@
 //
 //
 //@Repository
+//
 //public interface RentalRepository extends JpaRepository<Rental, Long> {
-//    Collection<RentalView> findAllProjectedBy();
+//    Collection<Rental> findByClientEmail(String email,);
 //}

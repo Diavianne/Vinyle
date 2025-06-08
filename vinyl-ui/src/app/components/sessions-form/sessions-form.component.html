@@ -45,7 +45,13 @@
       @if (isInvalidAndTouchedOrDirty(formGroup.controls['password'])) {
       <small class="text-danger">
         @if (formGroup.controls['password'].errors?.['required']){
-        <span>Un mot de passe de 8 caractères minimum est requis</span>}
+        <span>Un mot de passe de 8 caractères minimum est requis</span>} @if
+        (formGroup.controls['password'].errors?.['pattern']){
+        <span
+          >Le mot de passe doit contenir au moins une majuscule, une minuscule
+          et une lettre</span
+        >
+        }
       </small>
       }
     </div>
