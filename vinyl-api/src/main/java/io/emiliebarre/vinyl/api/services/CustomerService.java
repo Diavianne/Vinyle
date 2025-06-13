@@ -30,7 +30,7 @@ public class CustomerService {
         return customers.findAllProjectedBy();
     }
 
-    public Collection<CustomerView> searchByEmail(String email) {
+    public Collection<CustomerView> getByEmail(String email) {
         return customers.findByEmailContainingIgnoreCase(email);
     }
 
@@ -39,12 +39,12 @@ public class CustomerService {
     }
 
     public void updateOne(Long id, CustomerUpdate inputs) {
-        Customer entity = customers.findById(id).orElse(null);
+        Customer entity = customers.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
         entity.setName(inputs.name());
         entity.setEmail(inputs.email());
         entity.setAddress(inputs.address());
         customers.save(entity);
-
     }
 
     public void deleteOne(Long id) {

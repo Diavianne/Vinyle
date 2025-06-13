@@ -1,19 +1,15 @@
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpHandlerFn,
-  HttpHeaders,
-  HttpInterceptor,
-  HttpRequest,
-} from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpEvent, HttpHandlerFn, HttpRequest } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { AuthService } from './auth.service';
 
 export function authInterceptor(
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ) {
+  if (req.url.endsWith('/employees/authenticate')) {
+    return next(req);
+  }
+
   const authSer = inject(AuthService);
   const token = authSer.getAuthToken();
   if (!token) {

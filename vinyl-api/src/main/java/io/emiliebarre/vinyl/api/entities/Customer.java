@@ -9,10 +9,13 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
     private Long id;
-    @Column(name = "customer_email")
+
+    @Column(name = "customer_email", unique = true, nullable = false)
     private String email;
+
     @Column(name = "customer_name")
     private String name;
+    
     @Column(name = "customer_address")
     private String address;
 

@@ -3,63 +3,33 @@ package io.emiliebarre.vinyl.api.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "t_rentals")
 public class Rental {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rental_id")
-    private Long id;
+    private Long rentalId;
 
-    @Column(name = "rental_date", nullable = false)
-    private LocalDate rentalDate = LocalDate.now();
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    @Column(name = "return_date")
-    private LocalDate returnDate;
-
-    @ManyToOne
-    @JoinColumn(name = "vinyl_id", nullable = false)
-    private Vinyl vinyl;
+    @Column(nullable = false)
+    private String status; // 'PENDING', 'ACTIVE', 'RETURNED'
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
-    private Employee employee;
-
-    public Long getId() {
-        return id;
+    public List<RentalItem> getItems() {
+        return items;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getRentalDate() {
-        return rentalDate;
-    }
-
-    public void setRentalDate(LocalDate rentalDate) {
-        this.rentalDate = rentalDate;
-    }
-
-    public LocalDate getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(LocalDate returnDate) {
-        this.returnDate = returnDate;
-    }
-
-    public Vinyl getVinyl() {
-        return vinyl;
-    }
-
-    public void setVinyl(Vinyl vinyl) {
-        this.vinyl = vinyl;
+    public void setItems(List<RentalItem> items) {
+        this.items = items;
     }
 
     public Customer getCustomer() {
@@ -70,34 +40,39 @@ public class Rental {
         this.customer = customer;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public String getStatus() {
+        return status;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Rental() {
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public Rental(LocalDate rentalDate, LocalDate returnDate, Vinyl vinyl, Customer customer, Employee employee) {
-        this.rentalDate = rentalDate != null ? rentalDate : LocalDate.now();
-        this.returnDate = returnDate;
-        this.vinyl = vinyl;
-        this.customer = customer;
-        this.employee = employee;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
-    @Override
-    public String toString() {
-        return "Rental{" +
-                "id=" + id +
-                ", rentalDate=" + rentalDate +
-                ", returnDate=" + returnDate +
-                ", vinyl=" + vinyl +
-                ", customer=" + customer +
-                ", employee=" + employee +
-                '}';
+    public LocalDate getStartDate() {
+        return startDate;
     }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public Long getRentalId() {
+        return rentalId;
+    }
+
+    public void setRentalId(Long rentalId) {
+        this.rentalId = rentalId;
+    }
+
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RentalItem> items = new ArrayList<>();
 }
+

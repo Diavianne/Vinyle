@@ -4,10 +4,14 @@ import { Customer } from './customer.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface RentalItem {
+  vinyl: Vinyl;
+}
 export interface Rental {
+  id: number;
   customerEmail: string;
-  vinylIds: number[];
-  returnDate: string;
+  items: RentalItem[];
+  status: string;
 }
 
 @Injectable({
@@ -31,5 +35,16 @@ export class RentalService {
 
   createRental(rentalData: Rental): Observable<Rental> {
     return this.http.post<Rental>(this.apiUrl, rentalData);
+  }
+
+  addVinylToRental(email: string, vinylId: number): Observable<Rental> {
+    return this.http.post<Rental>(`${this.apiUrl}/add-vinyl`, {
+      email,
+      vinylId,
+    });
+  }
+
+  validateRental(rentalId: number): Observable<Rental> {
+    return this.http.post<Rental>(`${this.apiUrl}/${rentalId}/validate`, {});
   }
 }
