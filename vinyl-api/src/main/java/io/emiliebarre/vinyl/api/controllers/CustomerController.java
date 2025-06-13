@@ -37,6 +37,11 @@ public class CustomerController {
         return customerService.getCustomerById(id);
     }
 
+    @GetMapping("/search")
+    public Collection<CustomerView> searchByEmail(@RequestParam String email) {
+        return customerService.getByEmail(email);
+    }
+
     @PutMapping("/{id}")
     void updateOne(@PathVariable("id") Long id,
                    @Valid @RequestBody CustomerUpdate inputs) {

@@ -1,23 +1,52 @@
 <header class="container-fluid shadow-lg fixed-top z-1">
   <div class="row align-items-center justify-content-between py-2 px-3">
     <div class="col-auto">
-      <a class="navbar-brand" href="#">Vinyl App</a>
+      <a class="navbar-brand" href="#">Vinyl Addict</a>
     </div>
     <div class="col">
-      <nav class="nav justify-content-center">
-        <ul class="nav">
-          @for (menu of menuItems ; track menu.id) {
-          <li class="nav-item d-flex align-items-center" style="margin: 0 2rem">
-            <i class="{{ menu.icon }}"></i>&nbsp;
-            <a
-              class="nav-link text-dark"
-              [routerLink]="menu.url"
-              routerLinkActive="active"
-              >{{ menu.titre }}</a
-            >
-          </li>
-          }
-        </ul>
+      <nav class="navbar navbar-light justify-content-center d-md-none">
+        <div class="dropdown w-100 text-center">
+          <button
+            class="btn btn-outline-secondary dropdown-toggle w-75"
+            type="button"
+            id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+            @for (menu of menuItems ; track menu.id) {
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="menu.url"
+                routerLinkActive="active"
+                >{{ menu.titre }}</a
+              >
+            </li>
+            }
+          </ul>
+        </div>
+      </nav>
+      <nav
+        class="navbar navbar-expand-md navbar-light justify-content-center d-none d-md-flex"
+      >
+        <div class="collapse navbar-collapse justify-content-center show">
+          <ul class="navbar-nav">
+            @for (menu of menuItems ; track menu.id) {
+            <li class="nav-item d-flex align-items-center mx-2">
+              <i class="{{ menu.icon }}"></i>&nbsp;
+              <a
+                class="nav-link text-dark"
+                [routerLink]="menu.url"
+                routerLinkActive="active"
+                >{{ menu.titre }}</a
+              >
+            </li>
+            }
+          </ul>
+        </div>
       </nav>
     </div>
     <div class="col-auto">

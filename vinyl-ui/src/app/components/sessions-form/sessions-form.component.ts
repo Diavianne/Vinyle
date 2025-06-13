@@ -4,7 +4,6 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -26,6 +25,7 @@ export class SessionsFormComponent {
   @Input() titleSubmit = '';
   @Output() formSubmit = new EventEmitter<void>();
   @Input() showNameFields: boolean = false;
+  showPassword = false;
   router = inject(Router);
 
   onSubmit() {
@@ -40,5 +40,9 @@ export class SessionsFormComponent {
 
   isInvalidAndTouchedOrDirty(control: AbstractControl): boolean {
     return control.invalid && (control.dirty || control.touched);
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

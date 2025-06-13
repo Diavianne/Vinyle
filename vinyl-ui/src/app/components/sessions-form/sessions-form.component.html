@@ -41,11 +41,49 @@
     </div>
     <div class="item">
       <label for="password">MOT DE PASSE</label>
-      <input type="password" id="password" formControlName="password" />
+      <div style="position: relative">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+          formControlName="password"
+          style="padding-right: 2.5rem"
+        />
+        <button
+          type="button"
+          (click)="togglePasswordVisibility()"
+          style="
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+          "
+          tabindex="-1"
+          aria-label="Afficher ou masquer le mot de passe"
+        >
+          @if (!showPassword) {
+          <i class="bi bi-eye"></i>
+          <!-- œil fermé -->
+          } @if (showPassword) {
+          <i class="bi bi-eye-slash"></i>
+          <!-- œil ouvert -->
+          }
+        </button>
+      </div>
       @if (isInvalidAndTouchedOrDirty(formGroup.controls['password'])) {
       <small class="text-danger">
         @if (formGroup.controls['password'].errors?.['required']){
-        <span>Un mot de passe de 8 caractères minimum est requis</span>}
+        <span>Une valeur est requise</span>
+        } @if (formGroup.controls['password'].errors?.['minlength']){
+        <span>Un mot de passe de 8 caractères minimum est requis</span>
+        } @if (formGroup.controls['password'].errors?.['pattern']){
+        <span>
+          Le mot de passe doit contenir au moins une majuscule, une minuscule et
+          une lettre
+        </span>
+        }
       </small>
       }
     </div>

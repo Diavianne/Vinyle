@@ -1,82 +1,94 @@
-<div class="rental-list">
-  <div class="rental-header">
-    <h2>Créer une location</h2>
-  </div>
-  <div class="rental-form">
-    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="email">Email du client</label>
-        <input
-          type="text"
-          id="email"
-          formControlName="email"
-          class="form-control"
-          (blur)="searchCustomer()"
-        />
-
-        @if (customerFound) {
-        <div class="success">Client trouvé</div>
-        } @if (customerError) {
-        <div class="error">Client introuvable</div>
-        }
-      </div>
-      <div class="form-group">
-        <label for="vinylSearch">Recherche de Vinyle</label>
-        <input
-          type="text"
-          id="vinylSearch"
-          formControlName="vinylSearch"
-          class="form-control"
-          (input)="searchVinyl()"
-        />
-      </div>
-
-      @if(vinylResults.length > 0) {
-      <div>
-        <h4>Résultats de recherche</h4>
-        <ul class="vinyl-results">
-          @for (vinyl of vinylResults; track vinyl.id) {
-          <li (click)="addVinyl(vinyl)">
-            {{ vinyl.title }} - {{ vinyl.artist }}
-          </li>
-          }
-        </ul>
-      </div>
-      } @if(selectedVinyls.length > 0) {
-      <div>
-        <h4>Vinyles sélectionnés</h4>
-        <ul class="selected-vinyls">
-          @for (vinyl of selectedVinyls; track vinyl.id) {
-          <li>
-            {{ vinyl.title }} - {{ vinyl.artist }}
-            <button (click)="removeVinyl(vinyl)">Retirer</button>
-          </li>
-          }
-        </ul>
-      </div>
-      }
-
-      <div class="form-group">
-        <label for="returnDate">Date de retour (optionelle)</label>
-        <input
-          type="date"
-          id="returnDate"
-          formControlName="returnDate"
-          class="form-control"
-        />
-      </div>
-
-      <div class="form-actions">
-        <button
-          type="submit"
-          class="btn btn-primary"
-          [disabled]="
-            !formGroup.valid || !customerFound || selectedVinyls.length === 0
-          "
+<div class="rental-form">
+  <h2 class="mb-4">Nouvelle location</h2>
+  <form [formGroup]="formGroup" (ngSubmit)="addVinylsToRental()">
+    <div class="mb-3">
+      <label for="email" class="form-label">Email du client</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        class="form-control"
+      />
+    </div>
+    <div class="mb-3 position-relative">
+      <label for="vinylSearch" class="form-label">Vinyle</label>
+      <input
+        id="vinylSearch"
+        type="text"
+        formControlName="vinylSearch"
+        class="form-control"
+        placeholder="Tapez un titre ou un artiste"
+        (input)="onVinylSearch()"
+        autocomplete="off"
+      />
+      <ul
+        *ngIf="vinylResults.length > 0"
+        class="list-group position-absolute w-100"
+        style="z-index: 10; max-height: 200px; overflow-y: auto"
+      >
+        <li
+          *ngFor="let vinyl of vinylResults"
+          (click)="selectVinyl(vinyl)"
+          class="list-group-item list-group-item-action"
+          style="cursor: pointer"
         >
-          Valider la location
-        </button>
-      </div>
-    </form>
+          {{ vinyl.title }} – {{ vinyl.artist }}
+        </li>
+      </ul>
+      <button
+        type="button"
+        class="btn btn-outline-secondary mt-2"
+        (click)="addToCart()"
+        [disabled]="!selectedVinylId"
+      >
+        Ajouter au panier
+      </button>
+    </div>
+    <div *ngIf="cart.length > 0" class="mb-3">
+      <label class="form-label">Panier de location</label>
+      <ul class="list-group">
+        <li
+          *ngFor="let vinyl of cart"
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          <span>{{ vinyl.title }} – {{ vinyl.artist }}</span>
+          <button
+            type="button"
+            class="btn btn-sm btn-danger"
+            (click)="removeFromCart(vinyl)"
+          >
+            Retirer
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="d-flex justify-content-end gap-2">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="formGroup.invalid || cart.length === 0"
+      >
+        Ajouter tous les vinyles à la location
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="rental as r" class="mt-4">
+    <h4>Location en cours (ID: {{ r.id }})</h4>
+    <p>Status : {{ r.status }}</p>
+    <ul class="list-group mb-2">
+      <li *ngFor="let item of r.items" class="list-group-item">
+        {{ item.vinyl.title || "Vinyle inconnu" }} (ID: {{ item.vinyl.id }})
+      </li>
+    </ul>
+    <button
+      (click)="validateRental()"
+      [disabled]="r.status !== 'PENDING'"
+      class="btn btn-success"
+    >
+      Valider la location
+    </button>
   </div>
+
+  <p *ngIf="errorMessage" class="text-danger mt-3">{{ errorMessage }}</p>
 </div>
