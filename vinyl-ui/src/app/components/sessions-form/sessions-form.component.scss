@@ -148,4 +148,12 @@ form span {
     margin-bottom: 10px;
     width: 100%;
   }
+  @media (max-width: 991.98px) {
+    form .half {
+      flex-direction: column;
+    }
+    form .half .item {
+      width: 100%;
+    }
+  }
 }

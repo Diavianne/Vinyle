@@ -3,6 +3,10 @@ DROP TABLE IF EXISTS t_employees;
 DROP TABLE IF EXISTS t_customers;
 DROP TABLE IF EXISTS t_rentals;
 
+DROP TABLE t_employees CASCADE;
+DROP TABLE t_customers CASCADE;
+DROP TABLE t_rentals CASCADE;
+
 ----------------------------------------------------------------
 
 
@@ -50,20 +54,20 @@ SELECT * FROM t_customers;
 
 ----------------------------------------------------------------
 
--- 1. Créer le type ENUM
-CREATE TYPE rental_status AS ENUM ('PENDING', 'ACTIVE', 'RETURNED');
-
 CREATE TABLE t_rentals (
     rental_id INT GENERATED ALWAYS AS IDENTITY,
     start_date DATE,
     end_date DATE,
-    status rental_status NOT NULL DEFAULT 'PENDING',
+    status VARCHAR(16) NOT NULL DEFAULT 'PENDING',
     customer_id INT NOT NULL,
     CONSTRAINT t_rentals_pkey PRIMARY KEY (rental_id),
     CONSTRAINT t_rentals_customer_fkey FOREIGN KEY (customer_id)
         REFERENCES t_customers (customer_id)
         ON DELETE CASCADE
 );
+
+SELECT * FROM t_rentals;
+
 
 CREATE TABLE t_rental_items (
     rental_item_id INT GENERATED ALWAYS AS IDENTITY,

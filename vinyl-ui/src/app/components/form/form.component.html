@@ -75,44 +75,45 @@
     </form>
   </div>
   }
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Pochette</th>
-        <th>Titre</th>
-        <th>Artiste</th>
-        <th>Année</th>
-        <th>Modifier/Supprimer</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (vinyl of vinyls; track vinyl.id) {
-      <tr>
-        <td>
-          <img
-            [src]="getImageUrl(vinyl.imageId)"
-            alt="Pochette"
-            width="50"
-            onerror="this.onerror=null;this.src='default-image.jpg';"
-          />
-        </td>
-        <td>{{ vinyl.title }}</td>
-        <td>{{ vinyl.artist }}</td>
-        <td>{{ vinyl.year }}</td>
-        <td>
-          <button class="btn btn-sm me-5" (click)="editVinyl(vinyl)">
-            <i class="bi bi-pencil"></i>
-          </button>
-          <button
-            class="btn btn-sm btn-outline-danger"
-            (click)="deleteVinyl(vinyl)"
-          >
-            <i class="bi bi-trash3"></i>
-          </button>
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Pochette</th>
+          <th>Titre</th>
+          <th>Artiste</th>
+          <th>Année</th>
+          <th>Modifier/Supprimer</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (vinyl of vinyls; track vinyl.id) {
+        <tr>
+          <td>
+            <img
+              [src]="getImageUrl(vinyl.imageId)"
+              alt="Pochette"
+              width="50"
+              onerror="this.onerror=null;this.src='default-image.jpg';"
+            />
+          </td>
+          <td>{{ vinyl.title }}</td>
+          <td>{{ vinyl.artist }}</td>
+          <td>{{ vinyl.year }}</td>
+          <td>
+            <button class="btn btn-sm me-5" (click)="editVinyl(vinyl)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="deleteVinyl(vinyl)"
+            >
+              <i class="bi bi-trash3"></i>
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>
