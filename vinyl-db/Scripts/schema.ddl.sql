@@ -13,14 +13,15 @@ CREATE TABLE t_vinyls (
     CONSTRAINT t_vinyls_pkey PRIMARY KEY (vinyl_id)
 );
 
--- Table des disquaires (employés)
+-- Table des disquaires
 CREATE TABLE t_employees (
     employee_id INT GENERATED ALWAYS AS IDENTITY,
     employee_firstname VARCHAR(70),
     employee_lastname VARCHAR(70),
     employee_email VARCHAR(70),
     employee_password VARCHAR(30),
-    CONSTRAINT t_employees_pkey PRIMARY KEY (employee_id)
+    CONSTRAINT t_employees_pkey PRIMARY KEY (employee_id),
+    CONSTRAINT unique_employee_email UNIQUE (employee_email)
 );
 
 -- Table des clients
