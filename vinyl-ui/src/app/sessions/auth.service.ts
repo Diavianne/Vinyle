@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment.development';
 
 interface Employee {
   id?: number;
@@ -15,7 +16,7 @@ interface Employee {
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly apiUrl = 'http://localhost:8080/employees';
+  private readonly apiUrl = environment.apiUrl + '/employees';
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
 

@@ -3,6 +3,7 @@ import { Vinyl } from './vinyl.service';
 import { Customer } from './customer.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 export interface RentalItem {
   vinyl: Vinyl;
@@ -19,7 +20,7 @@ export interface Rental {
 })
 export class RentalService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8080/rentals';
+  private readonly apiUrl = environment.apiUrl + '/rentals';
 
   searchCustomerByEmail(email: string): Observable<Customer[]> {
     return this.http.get<Customer[]>(

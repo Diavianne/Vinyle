@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.development';
 
 export interface Vinyl {
   id: number;
@@ -14,7 +15,7 @@ export interface Vinyl {
   providedIn: 'root',
 })
 export class VinylService {
-  private readonly apiUrl = 'http://localhost:8080/vinyls';
+  private readonly apiUrl = environment.apiUrl + '/vinyls';
   private readonly http = inject(HttpClient);
 
   getVinyls(): Observable<Vinyl[]> {

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 export interface Customer {
   id?: number;
@@ -13,7 +14,7 @@ export interface Customer {
   providedIn: 'root',
 })
 export class CustomerService {
-  private readonly apiUrl = 'http://localhost:8080/customers';
+  private readonly apiUrl = environment.apiUrl + '/customers';
   private readonly http = inject(HttpClient);
 
   createCustomer(customerData: Customer): Observable<Customer> {

@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 
 import { Vinyl } from '../../services/vinyl.service';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-form',
@@ -136,7 +137,7 @@ export class FormComponent implements OnInit {
     if (!imageId) {
       return 'default-image.jpg';
     }
-    return `http://localhost:8080/uploads/dest/${imageId}`;
+    return `${environment.apiUrl}/uploads/dest/${imageId}`;
   }
 
   cancelForm() {
