@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://54.36.100.9:8086',
+  apiUrl: 'https://goldengate.readresolve.tech/elm/Vinyle/vinyl-api',
 };
