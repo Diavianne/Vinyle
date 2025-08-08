@@ -3,7 +3,7 @@ import { Vinyl } from './vinyl.service';
 import { Customer } from './customer.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 export interface RentalItem {
   vinyl: Vinyl;

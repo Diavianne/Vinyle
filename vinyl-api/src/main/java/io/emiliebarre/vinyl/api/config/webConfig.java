@@ -102,8 +102,6 @@ public class webConfig implements WebMvcConfigurer {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/employees", "/employees/authenticate").anonymous()
-                        .requestMatchers(HttpMethod.GET, "/vinyls", "/vinyls/{id}", "/vinyls/search/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/customers", "/customers/{id}").permitAll()
                         .requestMatchers("/uploads/dest/**").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
