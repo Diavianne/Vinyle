@@ -19,7 +19,7 @@ CREATE TABLE t_employees (
     employee_firstname VARCHAR(70),
     employee_lastname VARCHAR(70),
     employee_email VARCHAR(70),
-    employee_password VARCHAR(30),
+    employee_password VARCHAR(60),
     CONSTRAINT t_employees_pkey PRIMARY KEY (employee_id),
     CONSTRAINT unique_employee_email UNIQUE (employee_email)
 );
@@ -30,7 +30,8 @@ CREATE TABLE t_customers (
     customer_email VARCHAR(254),
     customer_name VARCHAR(100),
     customer_city VARCHAR(255),
-    CONSTRAINT t_customers_pkey PRIMARY KEY (customer_id)
+    CONSTRAINT t_customers_pkey PRIMARY KEY (customer_id),
+    CONSTRAINT unique_customers_email UNIQUE (customer_email)
 );
 
 -- Table des locations
