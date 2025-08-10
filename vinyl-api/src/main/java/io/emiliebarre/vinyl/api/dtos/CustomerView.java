@@ -4,6 +4,6 @@ public record CustomerView(
         Long id,
         String name,
         String email,
-        String address
+        String city
 ) {
 }

@@ -5,6 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 public record CustomerCreate(
         @NotBlank String name,
         @NotBlank String email,
-        @NotBlank String address
+        @NotBlank String city
 ) {
 }

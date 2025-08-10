@@ -22,7 +22,7 @@ public class CustomerService {
         Customer entity = new Customer();
         entity.setName(inputs.name());
         entity.setEmail(inputs.email());
-        entity.setAddress(inputs.address());
+        entity.setAddress(inputs.city());
         customers.save(entity);
     }
 
@@ -43,7 +43,7 @@ public class CustomerService {
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
         entity.setName(inputs.name());
         entity.setEmail(inputs.email());
-        entity.setAddress(inputs.address());
+        entity.setAddress(inputs.city());
         customers.save(entity);
     }
 
