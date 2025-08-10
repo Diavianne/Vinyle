@@ -15,6 +15,6 @@ VALUES
 ('Max Platine', 'max.platine@sonorama.fr', '77420 Champs/Marne');
 
 
-INSERT INTO t_rentals (vinyl_id, customer_id, employee_id, rental_date, return_date) VALUES
-(1, 1, 1, '2025-07-01', '2025-07-10'),
-(2, 2, 2, '2025-07-05', NULL);
+--INSERT INTO t_rentals (vinyl_id, customer_id, employee_id, rental_date, return_date) VALUES
+--(1, 1, 1, '2025-07-01', '2025-07-10'),
+--(2, 2, 2, '2025-07-05', NULL);
