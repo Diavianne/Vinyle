@@ -27,7 +27,7 @@ export class CustomerProfilComponent implements OnInit {
     this.formGroup = new FormGroup({
       name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      address: new FormControl('', Validators.required),
+      city: new FormControl('', Validators.required),
     });
     this.loadCustomers();
   }
@@ -63,7 +63,7 @@ export class CustomerProfilComponent implements OnInit {
     this.formGroup.patchValue({
       name: customer.name,
       email: customer.email,
-      address: customer.address,
+      city: customer.city,
     });
     this.showAddForm = true;
   }
@@ -73,7 +73,7 @@ export class CustomerProfilComponent implements OnInit {
       const customerData: Customer = {
         name: this.formGroup.get('name')?.value,
         email: this.formGroup.get('email')?.value,
-        address: this.formGroup.get('address')?.value,
+        city: this.formGroup.get('city')?.value,
       };
 
       if (this.editingCustomer) {
