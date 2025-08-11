@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-profil',
@@ -22,6 +23,7 @@ export class CustomerProfilComponent implements OnInit {
   currentCustomers: Customer[] = [];
 
   private customerService = inject(CustomerService);
+  private toastr = inject(ToastrService);
 
   ngOnInit() {
     this.formGroup = new FormGroup({
@@ -87,6 +89,7 @@ export class CustomerProfilComponent implements OnInit {
               if (index !== -1) {
                 this.customers[index] = updateCustomer;
               }
+              this.toastr.success('Client modifié avec succès');
               this.loadCustomers();
               this.cancelForm();
             },
@@ -97,11 +100,18 @@ export class CustomerProfilComponent implements OnInit {
       } else {
         this.customerService.createCustomer(customerData).subscribe({
           next: (newCustomer) => {
+            this.toastr.success('Client ajouté avec succès');
             this.loadCustomers();
             this.cancelForm();
           },
-          error: (err) => {
-            console.error('Erreur lors de la création du client', err);
+          error: (error) => {
+            if (error.status === 409 || error.status === 401) {
+              this.toastr.error('Cet email est déjà utilisé.');
+            } else {
+              this.toastr.error(
+                "Une erreur est survenue lors de l'inscription."
+              );
+            }
           },
         });
       }

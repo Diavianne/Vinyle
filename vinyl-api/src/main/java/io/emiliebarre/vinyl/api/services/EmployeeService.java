@@ -6,9 +6,11 @@ import io.emiliebarre.vinyl.api.dtos.EmployeeView;
 import io.emiliebarre.vinyl.api.entities.Employee;
 import io.emiliebarre.vinyl.api.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
 import java.util.List;
@@ -36,6 +38,9 @@ public class EmployeeService {
 
     @Transactional
     public void create(EmployeeCreate inputs) {
+        if (repos.existsByEmail(inputs.email())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email déjà utilisée");
+        }
         Employee entity = new Employee();
         entity.setFirstname(inputs.firstname());
         entity.setLastname(inputs.lastname());

@@ -10,6 +10,7 @@ import {
 
 import { Vinyl } from '../../services/vinyl.service';
 import { environment } from '../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-form',
@@ -24,6 +25,7 @@ export class FormComponent implements OnInit {
   editingVinyl: Vinyl | null = null;
 
   private vinylService = inject(VinylService);
+  private toastr = inject(ToastrService);
 
   ngOnInit() {
     this.formGroup = new FormGroup({
@@ -69,7 +71,7 @@ export class FormComponent implements OnInit {
           .updateVinyl(this.editingVinyl.id!, formData)
           .subscribe({
             next: (updatedVinyl) => {
-              alert('Vinyle mis à jour avec succès');
+              this.toastr.success('Vinyle mis à jour avec succès');
 
               this.vinyls = this.vinyls.map((v) =>
                 v.id === updatedVinyl.id ? updatedVinyl : v
@@ -78,6 +80,7 @@ export class FormComponent implements OnInit {
               this.cancelForm();
             },
             error: (err) => {
+              this.toastr.error('Erreur lors de la mise à jour du vinyle');
               console.error('Erreur lors de la mise à jour du vinyle :', err);
             },
           });
@@ -85,12 +88,13 @@ export class FormComponent implements OnInit {
         // Si on ajoute un nouveau vinyle
         this.vinylService.createVinyl(formData).subscribe({
           next: (newVinyl) => {
-            alert('Vinyle ajouté avec succès');
+            this.toastr.success('Vinyle ajouté avec succès');
             this.vinyls.push(newVinyl);
             this.loadVinyls();
             this.cancelForm();
           },
           error: (err) => {
+            this.toastr.error("Erreur lors de l'ajout du vinyle");
             console.error("Erreur lors de l'ajout du vinyle :", err);
           },
         });
@@ -127,6 +131,7 @@ export class FormComponent implements OnInit {
           }
         },
         error: (err) => {
+          this.toastr.error('Erreur lors de la suppression du vinyle');
           console.error('Erreur lors de la suppression du vinyle :', err);
         },
       });

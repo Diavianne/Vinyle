@@ -4,6 +4,7 @@ import { SessionsFormComponent } from '../../components/sessions-form/sessions-f
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -17,6 +18,7 @@ export class SignupComponent {
   private readonly http = inject(HttpClient);
   private readonly fb = inject(FormBuilder);
   private readonly sessionService = inject(AuthService);
+  private readonly toastr = inject(ToastrService);
 
   message: string = '';
 
@@ -40,15 +42,24 @@ export class SignupComponent {
   onSubmit() {
     if (this.signup.valid) {
       const sessionData = this.signup.value;
-      this.sessionService.createSession(sessionData).subscribe((response) => {
-        alert('Vous êtes inscrit avec succès.');
-        this.sessionService.authenticate({
-          email: sessionData.email,
-          password: sessionData.password,
-        });
+      this.sessionService.createSession(sessionData).subscribe({
+        next: (response) => {
+          this.toastr.success('Vous êtes inscrit avec succès.');
+          this.sessionService.authenticate({
+            email: sessionData.email,
+            password: sessionData.password,
+          });
+        },
+        error: (error) => {
+          if (error.status === 409 || error.status === 401) {
+            this.toastr.error('Cet email est déjà utilisé.');
+          } else {
+            this.toastr.error("Une erreur est survenue lors de l'inscription.");
+          }
+        },
       });
     } else {
-      console.error('Form is invalid');
+      this.toastr.warning('Le formulaire est invalide.');
     }
   }
 }

@@ -19,6 +19,11 @@ public class CustomerService {
     }
 
     public void create(CustomerCreate inputs) {
+        if (customers.existsByEmail(inputs.email())) {
+            throw new org.springframework.web.server.ResponseStatusException(
+                    org.springframework.http.HttpStatus.CONFLICT, "Email déjà utilisé"
+            );
+        }
         Customer entity = new Customer();
         entity.setName(inputs.name());
         entity.setEmail(inputs.email());
