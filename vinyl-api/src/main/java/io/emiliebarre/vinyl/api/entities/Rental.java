@@ -32,7 +32,6 @@ public class Rental {
     @Column(name = "return_date")
     private LocalDate returnDate;
 
-    // Getters and setters
 
     public Integer getRentalId() {
         return rentalId;
