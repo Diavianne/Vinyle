@@ -51,7 +51,7 @@ export class SignupComponent {
           });
         },
         error: (error) => {
-          if (error.status === 409 || error.status === 401) {
+          if (error.status === 409) {
             this.toastr.error('Cet email est déjà utilisé.');
           } else {
             this.toastr.error("Une erreur est survenue lors de l'inscription.");

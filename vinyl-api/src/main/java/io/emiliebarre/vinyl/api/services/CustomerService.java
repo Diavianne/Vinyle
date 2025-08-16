@@ -27,7 +27,7 @@ public class CustomerService {
         Customer entity = new Customer();
         entity.setName(inputs.name());
         entity.setEmail(inputs.email());
-        entity.setAddress(inputs.city());
+        entity.setCity(inputs.city());
         customers.save(entity);
     }
 
@@ -46,9 +46,14 @@ public class CustomerService {
     public void updateOne(Long id, CustomerUpdate inputs) {
         Customer entity = customers.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
+        if (!entity.getEmail().equals(inputs.email()) && customers.existsByEmail(inputs.email())) {
+            throw new org.springframework.web.server.ResponseStatusException(
+                    org.springframework.http.HttpStatus.CONFLICT, "Email déjà utilisé"
+            );
+        }
         entity.setName(inputs.name());
         entity.setEmail(inputs.email());
-        entity.setAddress(inputs.city());
+        entity.setCity(inputs.city());
         customers.save(entity);
     }
 

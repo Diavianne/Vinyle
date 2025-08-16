@@ -48,11 +48,6 @@ public class EmployeeController {
         return employeeService.getEmployeeById(id);
     }
 
-    @PutMapping("/{id}")
-    void updateOne(@PathVariable("id") Long id,
-                   @ModelAttribute EmployeeCreate inputs) {
-        employeeService.updateOne(id, inputs);
-    }
 
     @DeleteMapping("/{id}")
     void deleteOne(@PathVariable("id") Long id) {

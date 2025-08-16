@@ -47,18 +47,18 @@ public class Customer {
         return city;
     }
 
-    public void setAddress(String city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
     public Customer() {
     }
 
-    public Customer(Long id, String email, String name, String address) {
+    public Customer(Long id, String email, String name, String city) {
         this.id = id;
         this.email = email;
         this.name = name;
-        this.city = address;
+        this.city = city;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Customer {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
-                ", address='" + city + '\'' +
+                ", city='" + city + '\'' +
                 '}';
     }
 }

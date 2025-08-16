@@ -49,9 +49,6 @@ public class EmployeeService {
         repos.save(entity);
     }
 
-    public void updateOne(Long id, EmployeeCreate inputs) {
-
-    }
 
     public void deleteOne(Long id) {
         repos.deleteById(id);
