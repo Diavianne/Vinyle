@@ -105,6 +105,21 @@ export class FormComponent implements OnInit {
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
+      const allowedTypes = ['image/jpeg', 'image/png'];
+      const maxSize = 5 * 1024 * 1024; // 5 Mo
+
+      if (!allowedTypes.includes(file.type)) {
+        this.toastr.error('Seuls les fichiers JPEG ou PNG sont autorisés.');
+        this.formGroup.patchValue({ image: null });
+        return;
+      }
+
+      if (file.size > maxSize) {
+        this.toastr.error("La taille de l'image ne doit pas dépasser 5 Mo.");
+        this.formGroup.patchValue({ image: null });
+        return;
+      }
+
       this.formGroup.patchValue({ image: file });
       this.formGroup.get('image')?.updateValueAndValidity();
     }
