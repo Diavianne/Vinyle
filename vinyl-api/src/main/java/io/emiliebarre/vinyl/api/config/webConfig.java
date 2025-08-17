@@ -103,6 +103,7 @@ public class webConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/employees", "/employees/authenticate").anonymous()
                         .requestMatchers("/uploads/dest/**").permitAll()
+                        .requestMatchers("www/uploads/dest/**").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 )
