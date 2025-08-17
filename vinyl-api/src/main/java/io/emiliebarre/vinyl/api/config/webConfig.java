@@ -105,7 +105,7 @@ public class webConfig implements WebMvcConfigurer {
                                 .requestMatchers("/uploads/dest/**").permitAll()
                                 .requestMatchers("www/uploads/dest/**").permitAll()
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-//                        .anyRequest().authenticated()
+                       .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))
                 .build();
