@@ -33,7 +33,7 @@ public class VinylService {
         entity.setTitle(inputs.title());
         entity.setArtist(inputs.artist());
         entity.setYear(inputs.year());
-        MultipartFile image = inputs.image();
+        MultipartFile image = inputs.imageId();
         if (image != null) {
             String imageId = buildImageId(image);
             storeImage(image, imageId);
@@ -74,7 +74,7 @@ public class VinylService {
         entity.setArtist(inputs.artist());
         entity.setYear(inputs.year());
 
-        MultipartFile image = inputs.image();
+        MultipartFile image = inputs.imageId();
         if (image != null && !image.isEmpty()) {
             String imageId = buildImageId(image);
             storeImage(image, imageId);
