@@ -14,6 +14,6 @@ public record VinylUpdate(
         @FileType(types = {
                 MediaType.IMAGE_JPEG_VALUE,
                 MediaType.IMAGE_PNG_VALUE})
-        @FileSize(max = FileSize.FIVE_MB) MultipartFile imageId
+        @FileSize(max = FileSize.FIVE_MB) MultipartFile image
 ) {
 }
