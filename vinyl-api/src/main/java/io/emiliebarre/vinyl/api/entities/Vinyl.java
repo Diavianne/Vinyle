@@ -69,7 +69,6 @@ public class Vinyl {
         this.artist = artist;
     }
 
-
     public String getYear() {
         return year;
     }
@@ -78,13 +77,8 @@ public class Vinyl {
         this.year = year;
     }
 
-
-    public String getImage() {
+    public String getImageId() {
         return imageId;
-    }
-
-    public void setImage(String image) {
-        this.imageId = imageId;
     }
 
     @Override
@@ -97,8 +91,8 @@ public class Vinyl {
                 '}';
     }
 
-
     public void setImageId(String imageId) {
         this.imageId = imageId;
     }
 }
+
