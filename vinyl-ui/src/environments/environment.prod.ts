@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://goldengate.readresolve.tech/elm',
+  apiUrl: 'https://elm.readresolve.tech/uploads/dest',
 };
