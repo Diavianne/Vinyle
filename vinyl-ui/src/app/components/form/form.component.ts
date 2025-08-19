@@ -157,6 +157,9 @@ export class FormComponent implements OnInit {
     if (!imageId) {
       return 'default-image.jpg';
     }
+    if (environment.production) {
+      return `https://elm.readresolve.tech/uploads/dest/${imageId}`;
+    }
     return `${environment.apiUrl}/uploads/dest/${imageId}`;
   }
 
