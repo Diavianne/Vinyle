@@ -4,7 +4,6 @@ import { SigninComponent } from './sessions/signin/signin.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FormComponent } from './components/form/form.component';
 import { CustomerProfilComponent } from './components/customer-profil/customer-profil.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RentalComponent } from './components/rental/rental.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
