@@ -1,3 +1,5 @@
+Ceci est un prototype.
+
 # Vinyle
 
 Projet Soutenance CDA
@@ -124,11 +126,13 @@ Voir `vinyl-db/Scripts/script.dml.sql` pour l’initialisation des données.
 
 ### MCD
 
-![MCD](https://github.com/user-attachments/assets/c4e8e20e-4f40-4695-8ea0-7d08b800c7e7)
+<img width="672" height="638" alt="Capture d’écran 2025-08-23 à 15 38 20" src="https://github.com/user-attachments/assets/8f4b4272-f8d2-41de-8758-a6f4e85d1747" />
+
 
 ### MLD-R
 
-![MLD-R](https://github.com/user-attachments/assets/213bb245-7178-4e27-8549-8715702dbac9)
+<img width="729" height="659" alt="Capture d’écran 2025-06-20 à 00 07 41" src="https://github.com/user-attachments/assets/c1c11548-148d-4460-97cb-f607a685136b" />
+
 
 ---
 
