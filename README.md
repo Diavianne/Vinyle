@@ -2,7 +2,7 @@
 
 Projet Soutenance CDA
 
-Vinyle est une application de gestion de discothèque de vinyles destinée aux professionnels du secteur musical. Elle permet de gérer le stock, les clients et les locations de vinyles dans une boutique physique, sur desktop ou tablette.
+Le projet **Vinyle** est un logiciel destiné à la gestion d’une collection de disques vinyles, conçu pour les rendre accessibles à un public spécialisé. Il s’adresse aux professionnels du secteur musical et propose une solution de gestion de stock disponible sur ordinateur ou tablette. L’application est conçue pour être utilisée dans une boutique physique, à la manière d’un vidéoclub.
 
 ---
 
@@ -44,7 +44,7 @@ Vinyle est une application de gestion de discothèque de vinyles destinée aux p
 - Angular CLI
 - Java 17+
 - Maven
-- Un SGBD compatible SQL (ex : PostgreSQL)
+- PostgreSQL
 
 ### Lancer le frontend
 
@@ -70,6 +70,36 @@ cd vinyl-api
   ```
 
 ---
+
+## Conception et modélisation de la base de données
+
+### Dictionnaire des données
+
+#### Entité : disquaire (utilisateur par défaut)
+
+| Attribut         | Type  | Longueur/précision | Obligatoire | Exemples            |
+| ---------------- | ----- | ------------------ | ----------- | ------------------- |
+| **Pénom**        | Texte | 100                | Oui         | Dee Jay             |
+| **Nom**          | Texte | 100                | Oui         | Dee Jay             |
+| **e-mail**       | Texte | 100                | Oui         | dee.jay@jolimail.io |
+| **mot de passe** | Texte | 8                  | oui         | aZerty!9            |
+
+#### Entité : vinyl
+
+| Attribut             | Type  | Longueur/précision | Obligatoire | Exemple                        |
+| -------------------- | ----- | ------------------ | ----------- | ------------------------------ |
+| **Release**          | Texte | 200                | Oui         | La Salsa Du Démon              |
+| **Nom de l'artiste** | Texte | 200                | Oui         | Le Grand Orchestre Du Splendid |
+| Année de sortie      | Date  | 10                 | Non         | 1980                           |
+| Image                | Texte | 41                 | Non         | UUID.jpeg                      |
+
+#### Entité : client
+
+| Attribut   | Type  | Longueur/précision | Obligatoire | Exemples            |
+| ---------- | ----- | ------------------ | ----------- | ------------------- |
+| **Nom**    | Texte | 100                | Oui         | Dee Jay             |
+| **e-mail** | Texte | 100                | Oui         | dee.jay@jolimail.io |
+| Ville      | Texte | 400                | Non         | Paris               |
 
 ## Base de données
 
@@ -107,7 +137,3 @@ Voir `vinyl-db/Scripts/script.dml.sql` pour l’initialisation des données.
 - Émilie Barré
 
 ---
-
-## Divers
-
-- Persona, benchmark, SWOT, MOSCOW, gestion de projet (Gantt), UX/UI (maquettes, charte graphique, typo) disponibles sur demande ou dans
