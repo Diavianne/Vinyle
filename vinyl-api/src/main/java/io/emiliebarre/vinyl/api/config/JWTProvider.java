@@ -12,7 +12,6 @@ import java.time.OffsetDateTime;
 public class JWTProvider {
 
     private final Algorithm algorithm;
-
     private final String issuer;
     private final boolean hasExpiration;
     private final int expirationMinutes;
