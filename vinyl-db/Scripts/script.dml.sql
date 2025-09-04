@@ -10,9 +10,9 @@ INSERT INTO t_vinyls (release_title, artist_name, vinyl_img, release_year) VALUE
 
 INSERT INTO t_customers (customer_name, customer_email, customer_city)
 VALUES 
-('Dee Jay', 'dee.jay@jolimail.fr','17500 Jonzac'),
-('Vinylia Groove', 'vinylia.groove@melodymail.com', '75008 Paris'),
-('Max Platine', 'max.platine@sonorama.fr', '77420 Champs/Marne');
+('Dee Jay', 'dee.jay@jolimail.fr','Jonzac'),
+('Vinylia Groove', 'vinylia.groove@melodymail.com', 'Paris'),
+('Max Platine', 'max.platine@sonorama.fr', 'Champs/Marne');
 
 
 --INSERT INTO t_rentals (vinyl_id, customer_id, employee_id, rental_date, return_date) VALUES
