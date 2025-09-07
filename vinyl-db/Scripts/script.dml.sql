@@ -5,8 +5,9 @@ INSERT INTO t_employees (employee_firstname, employee_lastname, employee_email, 
 
 
 INSERT INTO t_vinyls (release_title, artist_name, vinyl_img, release_year) VALUES
-('Abbey Road', 'The Beatles', 'abbey_road.jpg', '1969'),
-('Thriller', 'Michael Jackson', 'thriller.jpg', '1982');
+('Abbey Road', 'The Beatles', '22630075-d48d-4968-8a02-a156dc57c639.jpg', '1969'),
+('Thriller', 'Michael Jackson', 'b7e2c1a2-9f3b-4e2a-8c1a-7e2c1a2b7e2c.png', '1982'),
+('Joe le taxi', 'Vanessa Paradis', 'e3f1c2b4-7a8d-4c1e-9b2a-8e2f1c2b4e3f.jpeg', '1987');
 
 INSERT INTO t_customers (customer_name, customer_email, customer_city)
 VALUES 
