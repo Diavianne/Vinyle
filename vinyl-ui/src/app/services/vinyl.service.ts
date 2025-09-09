@@ -35,7 +35,6 @@ export class VinylService {
   }
 
   searchVinyls(query: string): Observable<Vinyl[]> {
-    // Adapte l'URL selon ton backend (exemple avec query param)
     return this.http.get<Vinyl[]>(`${this.apiUrl}/search`, {
       params: { q: query },
     });

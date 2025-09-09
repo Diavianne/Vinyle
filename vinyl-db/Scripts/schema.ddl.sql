@@ -37,9 +37,9 @@ CREATE TABLE t_customers (
 -- Table des locations
 CREATE TABLE t_rentals (
     rental_id INT GENERATED ALWAYS AS IDENTITY,
-    vinyl_id INT,
+    vinyl_id INT NOT NULL,
     customer_id INT NOT NULL,
-    employee_id INT,
+    employee_id INT NOT NULL,
     rental_date DATE NOT NULL,
     return_date DATE,
     CONSTRAINT t_rentals_pkey PRIMARY KEY (rental_id),
